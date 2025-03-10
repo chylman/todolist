@@ -7,18 +7,19 @@ import {FilterButtons} from "./FilterButtons.tsx";
 type Props = {
     title: string
     tasks: Task[]
-    deleteTask: (taskId: number) => void
+    deleteTask: (taskId: string) => void
     changeTodoListFilter: (newFilterValue: FilterValuesType) => void
     deleteAllTasks: () => void
+    createTask: (title: string) => void
 }
 
-export const TodolistItem = ({title, tasks, deleteTask, changeTodoListFilter, deleteAllTasks}: Props) => {
+export const TodolistItem = ({title, tasks, deleteTask, changeTodoListFilter, deleteAllTasks, createTask}: Props) => {
 
 
     return (
         <div>
             <TodoListTitle title={title}></TodoListTitle>
-            <AddTaskForm></AddTaskForm>
+            <AddTaskForm createTask={createTask}></AddTaskForm>
             <TasksList tasks={tasks} deleteTask={deleteTask}></TasksList>
             <FilterButtons deleteAllTasks={deleteAllTasks} changeTodoListFilter={changeTodoListFilter}></FilterButtons>
         </div>

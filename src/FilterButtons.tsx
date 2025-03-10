@@ -9,10 +9,10 @@ type FilterButtonsType = {
 export const FilterButtons = ({changeTodoListFilter, deleteAllTasks}:FilterButtonsType) => {
     return (
         <div>
-            <Button title={'DELETE ALL TASKS'} deleteAllTasks={deleteAllTasks}/>
-            <Button title={'All'} changeTodoListFilter={changeTodoListFilter} filtredValue={'all'}></Button>
-            <Button title={'Active'} changeTodoListFilter={changeTodoListFilter} filtredValue={'active'}></Button>
-            <Button title={'Completed'} changeTodoListFilter={changeTodoListFilter} filtredValue={'completed'}></Button>
+            <Button title={'DELETE ALL TASKS'} onClickHandler={() => deleteAllTasks()}/>
+            <Button title={'All'} onClickHandler={() => changeTodoListFilter('all')}></Button>
+            <Button title={'Active'} onClickHandler={() => changeTodoListFilter('active')}></Button>
+            <Button title={'Completed'} onClickHandler={() => changeTodoListFilter('completed')}></Button>
         </div>
     );
 };

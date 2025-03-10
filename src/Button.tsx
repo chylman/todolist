@@ -1,15 +1,10 @@
-import {FilterValuesType} from "./App.tsx";
 
 type Props = {
     title: string,
-    changeTodoListFilter?: (newFilterValue: FilterValuesType) => void
-    filtredValue?: FilterValuesType
-    deleteAllTasks?: () => void
+    disabled?: boolean,
+    onClickHandler?: () => void
 }
 
-export const Button = ({title, changeTodoListFilter, filtredValue, deleteAllTasks}: Props) => {
-    return <button onClick={() =>{
-        changeTodoListFilter && filtredValue && changeTodoListFilter(filtredValue)
-        deleteAllTasks && deleteAllTasks()
-    }}>{title}</button>
+export const Button = ({title, onClickHandler, disabled}: Props) => {
+    return <button onClick={onClickHandler} disabled={disabled}>{title}</button>
 };
