@@ -3,19 +3,31 @@ import {ChangeEvent, useState, KeyboardEvent} from "react";
 
 type AddTaskFormProps = {
     createTask: (title: string) => void
+    maxTitleLength: number
 
 }
 
-export const AddTaskForm = ({createTask}: AddTaskFormProps) => {
+export const AddTaskForm = ({createTask, maxTitleLength}: AddTaskFormProps) => {
     const [taskInput, setTaskInput] = useState<string>('');
-    const isAddBtnDisabled = !taskInput || taskInput.length > 10;
+    const [error, setError] = useState<boolean>(false);
+    const isAddBtnDisabled = !taskInput || taskInput.length > maxTitleLength;
+
 
     const createTaskHandler = () => {
-        createTask(taskInput);
+        const trimmedTitle = taskInput.trim();
+        if (trimmedTitle) {
+            createTask(taskInput);
+        } else {
+            setError(true);
+        }
+
         setTaskInput('');
     }
 
-    const setTaskInputHandler = (e: ChangeEvent<HTMLInputElement>)=> setTaskInput(e.currentTarget.value)
+    const setTaskInputHandler = (e: ChangeEvent<HTMLInputElement>)=> {
+        error && setError(false);
+        setTaskInput(e.currentTarget.value);
+    }
 
     const onKeyDownTaskHandler = (e: KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter' && !isAddBtnDisabled) {
@@ -27,15 +39,17 @@ export const AddTaskForm = ({createTask}: AddTaskFormProps) => {
     return (
         <div>
             <input
-                placeholder={'10 charters max length'}
+                placeholder={`${maxTitleLength} charters max length`}
                 value={taskInput}
                 onChange={setTaskInputHandler}
                 onKeyDown={onKeyDownTaskHandler}
+                className={error ? 'error' : ''}
             />
             <Button disabled={isAddBtnDisabled} title={'+'}
                     onClickHandler={createTaskHandler}></Button>
-            {taskInput && <div> 10 charters max length</div>}
-            {taskInput.length > 10 && <div style={{color: 'red'}}> title is too long</div>}
+            {taskInput && <div> {maxTitleLength} charters max length</div>}
+            {taskInput.length > maxTitleLength && <div style={{color: 'red'}}> title is too long</div>}
+            {error && <div style={{color: 'red'}}> enter valid title</div>}
         </div>
     );
 };

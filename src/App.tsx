@@ -27,14 +27,23 @@ export const App = () => {
     const deleteAllTasks = () => {
         setTasks([]);
     }
+
+    // Delete
     const deleteTask = (taskId: string) => {
         const nextState: Array<Task> = tasks.filter(t => t.id !== taskId)
         setTasks(nextState);
     }
-
+    // Create
     const createTask = (title: string) => {
         setTasks([...tasks, { id: v1(), title, isDone: false}])
     }
+
+    // Update status
+    const changeTaskStatus = (taskId: string, isDone: boolean) => {
+        const nextState: Array<Task> = tasks.map(t => t.id === taskId ? {...t, isDone: isDone} : t )
+        setTasks(nextState);
+    }
+
 
     const [filter, setFilter] = useState<FilterValuesType>('all');
 
@@ -65,6 +74,8 @@ export const App = () => {
                 deleteAllTasks={deleteAllTasks}
                 changeTodoListFilter={changeTodoListFilter}
                 createTask={createTask}
+                changeTaskStatus={changeTaskStatus}
+                activeFilter={filter}
             />
         </div>
     )
