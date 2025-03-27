@@ -1,4 +1,4 @@
-import {FilterValuesType, Task} from "./App.tsx";
+import {FilterValuesType, TaskType} from "./App.tsx";
 import {TodoListTitle} from "./TodoListTitle.tsx";
 import {AddTaskForm} from "./AddTaskForm.tsx";
 import {TasksList} from "./TasksList.tsx";
@@ -6,7 +6,7 @@ import {FilterButtons} from "./FilterButtons.tsx";
 
 type Props = {
     title: string
-    tasks: Task[]
+    tasks: TaskType[]
     deleteTask: (taskId: string) => void
     changeTodoListFilter: (newFilterValue: FilterValuesType) => void
     deleteAllTasks: () => void

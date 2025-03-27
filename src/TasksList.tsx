@@ -1,7 +1,7 @@
-import {Task} from "./App.tsx";
+import {TaskType} from "./App.tsx";
 
 type Props = {
-    tasks: Task[]
+    tasks: TaskType[]
     deleteTask: (taskId: string) => void
     changeTaskStatus: (taskId: string, isDone: boolean) => void
 }
