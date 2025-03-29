@@ -5,25 +5,38 @@ import {TasksList} from "./TasksList.tsx";
 import {FilterButtons} from "./FilterButtons.tsx";
 
 type Props = {
+    id: string;
     title: string
     tasks: TaskType[]
-    deleteTask: (taskId: string) => void
-    changeTodoListFilter: (newFilterValue: FilterValuesType) => void
-    deleteAllTasks: () => void
-    createTask: (title: string) => void
-    changeTaskStatus: (taskId: string, isDone: boolean) => void
+    deleteTask: (taskId: string, todolistId: string) => void
+    changeTodoListFilter: (newFilterValue: FilterValuesType, todolistId: string) => void
+    deleteAllTasks: (todolistId: string) => void
+    createTask: (title: string, todolistId: string) => void
+    changeTaskStatus: (taskId: string, isDone: boolean, todolistId: string) => void
     activeFilter: FilterValuesType
+    deleteTodolist: (todolistId: string) => void
 }
 
-export const TodolistItem = ({title, tasks, deleteTask, changeTodoListFilter, deleteAllTasks, createTask, changeTaskStatus, activeFilter}: Props) => {
-
-
+export const TodolistItem = ({
+                                 title,
+                                 tasks,
+                                 deleteTask,
+                                 changeTodoListFilter,
+                                 deleteAllTasks,
+                                 createTask,
+                                 changeTaskStatus,
+                                 activeFilter,
+                                 id,
+                                 deleteTodolist
+                             }: Props) => {
     return (
         <div>
-            <TodoListTitle title={title}></TodoListTitle>
-            <AddTaskForm maxTitleLength={12} createTask={createTask}></AddTaskForm>
-            <TasksList changeTaskStatus={changeTaskStatus} tasks={tasks} deleteTask={deleteTask}></TasksList>
-            <FilterButtons activeFilter={activeFilter} deleteAllTasks={deleteAllTasks} changeTodoListFilter={changeTodoListFilter}></FilterButtons>
+            <TodoListTitle title={title} deleteTodolistCallback={() => deleteTodolist(id)}></TodoListTitle>
+            <AddTaskForm maxTitleLength={12} createTask={(title: string) => createTask(title, id)}></AddTaskForm>
+            <TasksList changeTaskStatus={(taskId, isDone) => changeTaskStatus(taskId, isDone, id)} tasks={tasks}
+                       deleteTask={(taskId: string) => deleteTask(taskId, id)}></TasksList>
+            <FilterButtons activeFilter={activeFilter} deleteAllTasks={() => deleteAllTasks(id)}
+                           changeTodoListFilter={(newFilterValue: FilterValuesType) => changeTodoListFilter(newFilterValue, id)}></FilterButtons>
         </div>
     );
 };

@@ -16,7 +16,7 @@ export const AddTaskForm = ({createTask, maxTitleLength}: AddTaskFormProps) => {
     const createTaskHandler = () => {
         const trimmedTitle = taskInput.trim();
         if (trimmedTitle) {
-            createTask(taskInput);
+            createTask(trimmedTitle);
         } else {
             setError(true);
         }

@@ -48,8 +48,8 @@ export const App = () => {
     }
   );
 
-  const deleteAllTasks = () => {
-    // setTasks([]);
+  const deleteAllTasks = (todolistId: string) => {
+    setTasks({...tasks, [todolistId]: []});
   };
 
   // Delete
@@ -103,15 +103,16 @@ export const App = () => {
 
       return <TodolistItem
         key={tl.id}
+        id={tl.id}
         title={tl.title}
-        tasks={filtredTasks}
-        deleteTask={deleteTask}
-        deleteAllTasks={deleteAllTasks}
-        changeTodoListFilter={changeTodoListFilter}
-        createTask={createTask}
-        changeTaskStatus={changeTaskStatus}
         activeFilter={tl.filter}
-
+        tasks={filtredTasks}
+        createTask={createTask}
+        deleteTask={deleteTask}
+        changeTaskStatus={changeTaskStatus}
+        changeTodoListFilter={changeTodoListFilter}
+        deleteTodolist={deleteTodolist}
+        deleteAllTasks={deleteAllTasks}
       />
     }
   )
@@ -119,17 +120,6 @@ export const App = () => {
   return (
     <div className="app">
       {todolistsCoponents}
-
-      {/*<TodolistItem*/}
-      {/*  title={todoListTitle}*/}
-      {/*  tasks={filtredTasks}*/}
-      {/*  deleteTask={deleteTask}*/}
-      {/*  deleteAllTasks={deleteAllTasks}*/}
-      {/*  changeTodoListFilter={changeTodoListFilter}*/}
-      {/*  createTask={createTask}*/}
-      {/*  changeTaskStatus={changeTaskStatus}*/}
-      {/*  activeFilter={filter}*/}
-      {/*/>*/}
     </div>
   );
 };
