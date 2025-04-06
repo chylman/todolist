@@ -1,6 +1,6 @@
 import {FilterValuesType, TaskType} from "./App.tsx";
 import {TodoListTitle} from "./TodoListTitle.tsx";
-import {AddTaskForm} from "./AddTaskForm.tsx";
+import {AddItemForm} from "./AddItemForm.tsx";
 import {TasksList} from "./TasksList.tsx";
 import {FilterButtons} from "./FilterButtons.tsx";
 
@@ -32,7 +32,7 @@ export const TodolistItem = ({
     return (
         <div>
             <TodoListTitle title={title} deleteTodolistCallback={() => deleteTodolist(id)}></TodoListTitle>
-            <AddTaskForm maxTitleLength={12} createTask={(title: string) => createTask(title, id)}></AddTaskForm>
+            <AddItemForm maxTitleLength={12} createItem={(title: string) => createTask(title, id)}></AddItemForm>
             <TasksList changeTaskStatus={(taskId, isDone) => changeTaskStatus(taskId, isDone, id)} tasks={tasks}
                        deleteTask={(taskId: string) => deleteTask(taskId, id)}></TasksList>
             <FilterButtons activeFilter={activeFilter} deleteAllTasks={() => deleteAllTasks(id)}
