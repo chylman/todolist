@@ -1,12 +1,14 @@
 import {TaskType} from "./App.tsx";
+import {EditableSpan} from "./EditableSpan.tsx";
 
 type Props = {
     tasks: TaskType[]
     deleteTask: (taskId: string) => void
     changeTaskStatus: (taskId: string, isDone: boolean) => void
+    changeTaskTitle: (taskId: string, title: string) => void
 }
 
-export const TasksList = ({tasks, deleteTask, changeTaskStatus}: Props) => {
+export const TasksList = ({tasks, deleteTask, changeTaskStatus, changeTaskTitle}: Props) => {
 
 
     return (
@@ -20,7 +22,10 @@ export const TasksList = ({tasks, deleteTask, changeTaskStatus}: Props) => {
                         return (
                             <li key={t.id}>
                                 <input onChange={(e) => changeTaskStatus(t.id, e.currentTarget.checked)} type="checkbox" checked={t.isDone}/>
-                                <span className={taskClass}>{t.title}</span>
+                                <EditableSpan
+                                    title={t.title}
+                                    classes={taskClass}
+                                    changeTitle={(title: string) => changeTaskTitle(t.id, title)}/>
                                 <button onClick={() => deleteTask(t.id)}>x</button>
                             </li>
                         );

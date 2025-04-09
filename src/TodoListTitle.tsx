@@ -1,15 +1,19 @@
 import {Button} from "./Button.tsx";
 import styled from "styled-components";
+import {EditableSpan} from "./EditableSpan.tsx";
 
 type TodoListItemPropsType = {
     title: string
     deleteTodolistCallback: () => void
+    changeTodolistTitle: (title: string) => void
 }
 
-export const TodoListTitle = ({title, deleteTodolistCallback}: TodoListItemPropsType) => {
+export const TodoListTitle = ({title, deleteTodolistCallback, changeTodolistTitle}: TodoListItemPropsType) => {
     return (
         <TitleWrapper>
-            <Title>{title}</Title>
+            <Title>
+                <EditableSpan changeTitle={changeTodolistTitle} classes={''} title={title}/>
+            </Title>
             <Button title={'x'} onClickHandler={deleteTodolistCallback}/>
         </TitleWrapper>
     );

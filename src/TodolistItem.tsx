@@ -15,6 +15,9 @@ type Props = {
     changeTaskStatus: (taskId: string, isDone: boolean, todolistId: string) => void
     activeFilter: FilterValuesType
     deleteTodolist: (todolistId: string) => void
+    changeTaskTitle: (taskId: string, title: string, todolistId: string) => void
+    changeTodolistTitle: (title: string, todolistId: string) => void
+
 }
 
 export const TodolistItem = ({
@@ -27,14 +30,21 @@ export const TodolistItem = ({
                                  changeTaskStatus,
                                  activeFilter,
                                  id,
-                                 deleteTodolist
+                                 deleteTodolist,
+                                 changeTaskTitle,
+                                 changeTodolistTitle
                              }: Props) => {
     return (
         <div>
-            <TodoListTitle title={title} deleteTodolistCallback={() => deleteTodolist(id)}></TodoListTitle>
+            <TodoListTitle title={title}
+                           deleteTodolistCallback={() => deleteTodolist(id)}
+                           changeTodolistTitle={(title: string) => changeTodolistTitle(title, id)}
+            ></TodoListTitle>
             <AddItemForm maxTitleLength={12} createItem={(title: string) => createTask(title, id)}></AddItemForm>
             <TasksList changeTaskStatus={(taskId, isDone) => changeTaskStatus(taskId, isDone, id)} tasks={tasks}
-                       deleteTask={(taskId: string) => deleteTask(taskId, id)}></TasksList>
+                       deleteTask={(taskId: string) => deleteTask(taskId, id)}
+                       changeTaskTitle={(taskId: string, title: string) => changeTaskTitle(taskId, title, id)}
+            ></TasksList>
             <FilterButtons activeFilter={activeFilter} deleteAllTasks={() => deleteAllTasks(id)}
                            changeTodoListFilter={(newFilterValue: FilterValuesType) => changeTodoListFilter(newFilterValue, id)}></FilterButtons>
         </div>

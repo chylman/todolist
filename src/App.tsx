@@ -2,6 +2,7 @@ import './App.css';
 import {TodolistItem} from './TodolistItem.tsx';
 import {useState} from 'react';
 import {v1} from "uuid";
+import {AddItemForm} from "./AddItemForm.tsx";
 
 export type TaskType = {
     title: string,
@@ -79,7 +80,11 @@ export const App = () => {
 
     // Update task title
 
-    const changeTaskTitle = () => {
+    const changeTaskTitle = (taskId: string, title: string, todolistId: string) => {
+        setTasks({
+            ...tasks,
+            [todolistId]: tasks[todolistId].map(t => t.id === taskId ? {...t, title} : t)
+        });
     };
 
     // CRUD todolist
@@ -108,7 +113,8 @@ export const App = () => {
 
     // Update todolist title
 
-    const changeTodolistTitle = () => {
+    const changeTodolistTitle = (title: string, todolistId: string) => {
+        setTodolists(todolists.map(tl => tl.id === todolistId ? {...tl, title} : tl));
     };
 
 
@@ -139,12 +145,15 @@ export const App = () => {
                 changeTodoListFilter={changeTodoListFilter}
                 deleteTodolist={deleteTodolist}
                 deleteAllTasks={deleteAllTasks}
+                changeTaskTitle={changeTaskTitle}
+                changeTodolistTitle={changeTodolistTitle}
             />;
         }
     );
 
     return (
         <div className="app">
+            <AddItemForm createItem={createTodolists} maxTitleLength={10}/>
             {todolistsCoponents}
         </div>
     );
