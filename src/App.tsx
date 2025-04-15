@@ -3,6 +3,21 @@ import {TodolistItem} from './TodolistItem.tsx';
 import {useState} from 'react';
 import {v1} from "uuid";
 import {AddItemForm} from "./AddItemForm.tsx";
+import {
+    AppBar,
+    Box,
+    Container,
+    createTheme,
+    CssBaseline,
+    Grid,
+    IconButton,
+    Paper, Switch,
+    ThemeProvider,
+    Toolbar
+} from "@mui/material";
+import MenuIcon from '@mui/icons-material/Menu';
+import {NavButton} from "./NavButton.tsx";
+import {lime, purple } from '@mui/material/colors';
 
 export type TaskType = {
     title: string,
@@ -133,28 +148,70 @@ export const App = () => {
                 filtredTasks = tasks[tl.id].filter(t => t.isDone);
             }
 
-            return <TodolistItem
-                key={tl.id}
-                id={tl.id}
-                title={tl.title}
-                activeFilter={tl.filter}
-                tasks={filtredTasks}
-                createTask={createTask}
-                deleteTask={deleteTask}
-                changeTaskStatus={changeTaskStatus}
-                changeTodoListFilter={changeTodoListFilter}
-                deleteTodolist={deleteTodolist}
-                deleteAllTasks={deleteAllTasks}
-                changeTaskTitle={changeTaskTitle}
-                changeTodolistTitle={changeTodolistTitle}
-            />;
+            return (
+                <Grid key={tl.id}>
+                    <Paper elevation={8} sx={{p: '20px'}}>
+                        <TodolistItem
+                            id={tl.id}
+                            title={tl.title}
+                            activeFilter={tl.filter}
+                            tasks={filtredTasks}
+                            createTask={createTask}
+                            deleteTask={deleteTask}
+                            changeTaskStatus={changeTaskStatus}
+                            changeTodoListFilter={changeTodoListFilter}
+                            deleteTodolist={deleteTodolist}
+                            deleteAllTasks={deleteAllTasks}
+                            changeTaskTitle={changeTaskTitle}
+                            changeTodolistTitle={changeTodolistTitle}
+                        />
+                    </Paper>
+                </Grid>
+            );
         }
     );
 
+    const [isDarkMode, setDarkMode] = useState(false);
+
+    const theme = createTheme({
+        palette: {
+            primary: lime,
+            secondary: purple,
+            mode: isDarkMode ? 'dark' : 'light',
+        }
+    });
+
     return (
         <div className="app">
-            <AddItemForm createItem={createTodolists} maxTitleLength={10}/>
-            {todolistsCoponents}
+            <ThemeProvider theme={theme}>
+                <CssBaseline/>
+                <AppBar position="static">
+                    <Toolbar>
+                        <Container maxWidth="lg" sx={{display: 'flex', justifyContent: 'space-between'}}>
+                            <IconButton color="inherit">
+                                <MenuIcon/>
+                            </IconButton>
+                            <Box>
+                                <NavButton>Sign in</NavButton>
+                                <NavButton>Sign up</NavButton>
+                                <NavButton background={theme.palette.secondary.light}>Faq</NavButton>
+                                <Switch color='secondary' onChange={() => setDarkMode(!isDarkMode)}/>
+                            </Box>
+                        </Container>
+                    </Toolbar>
+                </AppBar>
+                <Container maxWidth="lg">
+                    <Grid container sx={{p: '20px'}}>
+                        <AddItemForm
+                            createItem={createTodolists}
+                            maxTitleLength={10}
+                        />
+                    </Grid>
+                    <Grid container spacing={4}>
+                        {todolistsCoponents}
+                    </Grid>
+                </Container>
+            </ThemeProvider>
         </div>
     );
 };

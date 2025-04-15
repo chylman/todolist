@@ -1,5 +1,6 @@
-import {Button} from "./Button.tsx";
-import {ChangeEvent, useState, KeyboardEvent} from "react";
+import {IconButton, TextField} from "@mui/material";
+import {ChangeEvent, KeyboardEvent, useState} from "react";
+import AddBoxIcon from '@mui/icons-material/AddBox';
 
 type AddItemFormProps = {
     createItem: (title: string) => void
@@ -22,34 +23,40 @@ export const AddItemForm = ({createItem, maxTitleLength}: AddItemFormProps) => {
         }
 
         setItemInput('');
-    }
+    };
 
-    const setItemInputHandler = (e: ChangeEvent<HTMLInputElement>)=> {
+    const setItemInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
         error && setError(false);
         setItemInput(e.currentTarget.value);
-    }
+    };
 
     const onKeyDownItemHandler = (e: KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter' && !isAddBtnDisabled) {
             createItemHandler();
         }
-    }
+    };
 
 
     return (
         <div>
-            <input
-                placeholder={`${maxTitleLength} charters max length`}
+            <TextField
+                variant="outlined"
+                size="small"
+                label={`${maxTitleLength} charters max length`}
                 value={itemInput}
                 onChange={setItemInputHandler}
                 onKeyDown={onKeyDownItemHandler}
                 className={error ? 'error' : ''}
+                error={error || itemInput.length > maxTitleLength}
+                helperText={error && 'enter valid title'}
             />
-            <Button disabled={isAddBtnDisabled} title={'+'}
-                    onClickHandler={createItemHandler}></Button>
-            {itemInput && <div> {maxTitleLength} charters max length</div>}
+            <IconButton aria-label={'add'}
+                        disabled={isAddBtnDisabled}
+                        onClick={createItemHandler}
+            >
+                <AddBoxIcon fontSize="large"/>
+            </IconButton>
             {itemInput.length > maxTitleLength && <div style={{color: 'red'}}> title is too long</div>}
-            {error && <div style={{color: 'red'}}> enter valid title</div>}
         </div>
     );
 };

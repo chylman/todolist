@@ -1,5 +1,5 @@
-import {Button} from "./Button.tsx";
 import {FilterValuesType} from "./App.tsx";
+import {Box, Button} from "@mui/material";
 
 type FilterButtonsType = {
     changeTodoListFilter: (newFilterValue: FilterValuesType) => void
@@ -7,13 +7,39 @@ type FilterButtonsType = {
     activeFilter: FilterValuesType
 }
 
-export const FilterButtons = ({changeTodoListFilter, deleteAllTasks, activeFilter}:FilterButtonsType) => {
+export const FilterButtons = ({changeTodoListFilter, deleteAllTasks, activeFilter}: FilterButtonsType) => {
     return (
-        <div>
-            <Button title={'DELETE ALL'} onClickHandler={() => deleteAllTasks()}/>
-            <Button className={activeFilter === 'all' ? 'btn-filter-active' : ''} title={'All'} onClickHandler={() => changeTodoListFilter('all')}></Button>
-            <Button className={activeFilter === 'active' ? 'btn-filter-active' : ''} title={'Active'} onClickHandler={() => changeTodoListFilter('active')}></Button>
-            <Button className={activeFilter === 'completed' ? 'btn-filter-active' : ''} title={'Completed'} onClickHandler={() => changeTodoListFilter('completed')}></Button>
-        </div>
+        <Box sx={{display: 'flex', justifyContent: 'space-between'}}>
+            <Button
+                variant={'contained'}
+                size="small"
+                disableElevation
+                onClick={() => deleteAllTasks()}>{'DELETE ALL'}
+            </Button>
+            <Button
+                variant={'contained'}
+                size="small"
+                color={activeFilter === 'all' ? 'secondary' : 'primary'}
+                disableElevation
+                onClick={() => changeTodoListFilter('all')}>
+                All
+            </Button>
+            <Button
+                variant={'contained'}
+                size="small"
+                color={activeFilter === 'active' ? 'secondary' : 'primary'}
+                disableElevation
+                onClick={() => changeTodoListFilter('active')}>
+                Active
+            </Button>
+            <Button
+                variant={'contained'}
+                size="small"
+                color={activeFilter === 'completed' ? 'secondary' : 'primary'}
+                disableElevation
+                onClick={() => changeTodoListFilter('completed')}>
+                Completed
+            </Button>
+        </Box>
     );
 };

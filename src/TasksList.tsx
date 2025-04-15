@@ -1,5 +1,8 @@
+import {Box, Checkbox, IconButton, List, ListItem} from "@mui/material";
 import {TaskType} from "./App.tsx";
 import {EditableSpan} from "./EditableSpan.tsx";
+import ClearIcon from '@mui/icons-material/Clear';
+import {getListItemSx} from "./TaskList.styles.ts";
 
 type Props = {
     tasks: TaskType[]
@@ -16,21 +19,34 @@ export const TasksList = ({tasks, deleteTask, changeTaskStatus, changeTaskTitle}
             {tasks.length === 0 ? (
                 <p>Тасок нет</p>
             ) : (
-                <ul>
+                <List>
                     {tasks.map(t => {
-                        const taskClass = t.isDone ? 'task-done' : 'task';
+
                         return (
-                            <li key={t.id}>
-                                <input onChange={(e) => changeTaskStatus(t.id, e.currentTarget.checked)} type="checkbox" checked={t.isDone}/>
-                                <EditableSpan
-                                    title={t.title}
-                                    classes={taskClass}
-                                    changeTitle={(title: string) => changeTaskTitle(t.id, title)}/>
-                                <button onClick={() => deleteTask(t.id)}>x</button>
-                            </li>
+                            <ListItem
+                                key={t.id}
+                                disablePadding
+                                sx={getListItemSx(t.isDone)}
+                            >
+                                <Box>
+                                    <label>
+                                        <Checkbox
+                                            size="small"
+                                            onChange={(e) => changeTaskStatus(t.id, e.currentTarget.checked)}
+                                            checked={t.isDone}
+                                        />
+                                        <EditableSpan
+                                            title={t.title}
+                                            changeTitle={(title: string) => changeTaskTitle(t.id, title)}/>
+                                    </label>
+                                </Box>
+                                <IconButton size="small" onClick={() => deleteTask(t.id)}>
+                                    <ClearIcon/>
+                                </IconButton>
+                            </ListItem>
                         );
                     })}
-                </ul>)}
+                </List>)}
         </div>
     );
 };

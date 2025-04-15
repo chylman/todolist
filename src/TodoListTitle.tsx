@@ -1,6 +1,7 @@
-import {Button} from "./Button.tsx";
 import styled from "styled-components";
 import {EditableSpan} from "./EditableSpan.tsx";
+import {IconButton} from "@mui/material";
+import DeleteIcon from '@mui/icons-material/Delete';
 
 type TodoListItemPropsType = {
     title: string
@@ -14,7 +15,9 @@ export const TodoListTitle = ({title, deleteTodolistCallback, changeTodolistTitl
             <Title>
                 <EditableSpan changeTitle={changeTodolistTitle} classes={''} title={title}/>
             </Title>
-            <Button title={'x'} onClickHandler={deleteTodolistCallback}/>
+            <IconButton onClick={deleteTodolistCallback}>
+                <DeleteIcon/>
+            </IconButton>
         </TitleWrapper>
     );
 };
