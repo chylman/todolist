@@ -24,6 +24,13 @@ import {
     deleteTodolistAC,
     todolistsReducer
 } from "./model/todolists-reducer.ts";
+import {
+  changeTaskStatusAC,
+  changeTaskTitleAC,
+  createTaskAC, deleteAllTasksAC,
+  deleteTaskAC,
+  tasksReducer
+} from "./model/tasks-reducer.ts";
 
 export type TaskType = {
     title: string,
@@ -32,7 +39,7 @@ export type TaskType = {
 }
 
 export type TaskStateType = {
-    [todolistId: string]: Array<TaskType>
+    [todolistId: string]: TaskType[]
 }
 
 export type FilterValuesType = 'all' | 'active' | 'completed'
@@ -44,70 +51,65 @@ export type TodolistType = {
 }
 
 export const App = () => {
-    const todolistId_1 = v1();
-    const todolistId_2 = v1();
+    const todolistId_1: string = v1();
+    const todolistId_2: string = v1();
 
-    const initialState: TodolistType[] = [
+    const initialTodolistsState: TodolistType[] = [
         {id: todolistId_1, title: 'What to learn', filter: 'all'},
         {id: todolistId_2, title: 'What to buy', filter: 'all'},
     ]
 
-    const [todolists, dispatchTodolists] = useReducer(todolistsReducer, initialState);
+    const initialTaskState: TaskStateType = {
+      [todolistId_1]: [
+        {id: `${v1()}`, title: 'HTML&CSS', isDone: true},
+        {id: `${v1()}`, title: 'JS', isDone: true},
+        {id: `${v1()}`, title: 'ReactJS', isDone: false},
+        {id: `${v1()}`, title: 'Redux', isDone: false},
+        {id: `${v1()}`, title: 'Typescript', isDone: false},
+        {id: `${v1()}`, title: 'RTK query', isDone: false},
+      ],
+      [todolistId_2]: [
+        {id: `${v1()}`, title: 'Water', isDone: true},
+        {id: `${v1()}`, title: 'Bread', isDone: true},
+        {id: `${v1()}`, title: 'Fish', isDone: false},
+        {id: `${v1()}`, title: 'Milk', isDone: false},
+      ],
+    }
 
-    const [tasks, setTasks] = useState<TaskStateType>({
-            [todolistId_1]: [
-                {id: v1(), title: 'HTML&CSS', isDone: true},
-                {id: v1(), title: 'JS', isDone: true},
-                {id: v1(), title: 'ReactJS', isDone: false},
-                {id: v1(), title: 'Redux', isDone: false},
-                {id: v1(), title: 'Typescript', isDone: false},
-                {id: v1(), title: 'RTK query', isDone: false},
-            ],
-            [todolistId_2]: [
-                {id: v1(), title: 'Water', isDone: true},
-                {id: v1(), title: 'Bread', isDone: true},
-                {id: v1(), title: 'Fish', isDone: false},
-                {id: v1(), title: 'Milk', isDone: false},
-            ],
-        }
-    );
+    const [todolists, dispatchTodolists] = useReducer(todolistsReducer, initialTodolistsState);
+
+    // const [tasks, setTasks] = useState<TaskStateType>(initialTaskState);
+    const [tasks, dispatchTasks] = useReducer(tasksReducer, initialTaskState);
 
     // Crud tasks
 
     const deleteAllTasks = (todolistId: string) => {
-        setTasks({...tasks, [todolistId]: []});
+      const action = deleteAllTasksAC(todolistId)
+      dispatchTasks(action)
     };
 
     // Delete task
     const deleteTask = (taskId: string, todolistId: string) => {
-        setTasks({
-            ...tasks,
-            [todolistId]: tasks[todolistId].filter(t => t.id !== taskId)
-        });
+      const action = deleteTaskAC(taskId, todolistId)
+      dispatchTasks(action)
     };
     // Create task
     const createTask = (title: string, todolistId: string) => {
-        setTasks({
-            ...tasks,
-            [todolistId]: [...tasks[todolistId], {id: v1(), title, isDone: false}]
-        });
+      const action = createTaskAC(title, todolistId)
+      dispatchTasks(action)
     };
 
     // Update task status
     const changeTaskStatus = (taskId: string, isDone: boolean, todolistId: string) => {
-        setTasks({
-            ...tasks,
-            [todolistId]: tasks[todolistId].map(t => t.id === taskId ? {...t, isDone: isDone} : t)
-        });
+      const action =  changeTaskStatusAC(taskId, isDone, todolistId)
+      dispatchTasks(action)
     };
 
     // Update task title
 
     const changeTaskTitle = (taskId: string, title: string, todolistId: string) => {
-        setTasks({
-            ...tasks,
-            [todolistId]: tasks[todolistId].map(t => t.id === taskId ? {...t, title} : t)
-        });
+      const action = changeTaskTitleAC(taskId, title, todolistId)
+      dispatchTasks(action)
     };
 
     // CRUD todolist
@@ -132,7 +134,7 @@ export const App = () => {
         const newTodolistId = v1();
         const action = createTodolistAC(title, newTodolistId);
         dispatchTodolists(action);
-        setTasks({...tasks, [newTodolistId]: []});
+        dispatchTasks(action);
     };
 
 
