@@ -66,27 +66,27 @@ export const App = () => {
     // Crud tasks
 
     const deleteAllTasks = (todolistId: string) => {
-        dispatch(deleteAllTasksAC(todolistId))
+        dispatch(deleteAllTasksAC({todolistId}))
     };
 
     // Delete task
     const deleteTask = (taskId: string, todolistId: string) => {
-        dispatch(deleteTaskAC(taskId, todolistId))
+        dispatch(deleteTaskAC({taskId, todolistId}))
     };
     // Create task
     const createTask = (title: string, todolistId: string) => {
-        dispatch(createTaskAC(title, todolistId))
+        dispatch(createTaskAC({title, id: todolistId}))
     };
 
     // Update task status
     const changeTaskStatus = (taskId: string, isDone: boolean, todolistId: string) => {
-        dispatch(changeTaskStatusAC(taskId, isDone, todolistId))
+        dispatch(changeTaskStatusAC({taskId, isDone, todolistId}))
     };
 
     // Update task title
 
     const changeTaskTitle = (taskId: string, title: string, todolistId: string) => {
-        dispatch(changeTaskTitleAC(taskId, title, todolistId))
+        dispatch(changeTaskTitleAC({taskId, title, todolistId}))
     };
 
     // CRUD todolist
