@@ -1,8 +1,8 @@
 import {Box, Checkbox, IconButton, List, ListItem} from "@mui/material";
-import {TaskType} from "./App.tsx";
 import {EditableSpan} from "./EditableSpan.tsx";
 import ClearIcon from '@mui/icons-material/Clear';
 import {getListItemSx} from "./TaskList.styles.ts";
+import {TaskType} from "@/app/App.tsx";
 
 type Props = {
     tasks: TaskType[]

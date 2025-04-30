@@ -1,5 +1,5 @@
-import {FilterValuesType} from "./App.tsx";
 import {Box, Button} from "@mui/material";
+import {FilterValuesType} from "@/app/App.tsx";
 
 type FilterButtonsType = {
     changeTodoListFilter: (newFilterValue: FilterValuesType) => void

@@ -1,9 +1,9 @@
-import {TaskStateType} from "../App.tsx";
 import {
     createTodolistAC,
     deleteTodolistAC
-} from "./todolists-reducer.ts";
+} from "@/model/todolists-reducer.ts";
 import {createAction, createReducer, nanoid} from "@reduxjs/toolkit";
+import {TaskStateType} from "@/app/App.tsx";
 
 const initialState: TaskStateType = {}
 

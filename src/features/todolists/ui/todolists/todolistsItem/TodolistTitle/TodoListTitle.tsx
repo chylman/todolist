@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {EditableSpan} from "./EditableSpan.tsx";
+import {EditableSpan} from "@/EditableSpan.tsx";
 import {IconButton} from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 
