@@ -1,10 +1,11 @@
 import './App.css';
 import {CssBaseline, ThemeProvider} from "@mui/material";
 import {useAppSelector} from '@/common/hooks/useAppSelector';
-import {selectThemeMode} from "@/model/app-selectors.ts";
 import {getTheme} from "@/common/theme/theme.ts";
-import {Header} from "@/Header.tsx";
 import {Main} from "@/app/Main.tsx";
+import {selectThemeMode} from "@/features/todolists/model/app-selectors";
+import {Header} from "@/common/components/Header/Header";
+import type {FilterValuesType} from "@/features/todolists/model/todolists-reducer";
 
 
 export type TaskType = {
@@ -14,11 +15,9 @@ export type TaskType = {
 }
 
 // todo replace in tasks-reducer
-export type TaskStateType = {
-    [todolistId: string]: TaskType[]
-}
+
 // todo replace in todolists-reducer
-export type FilterValuesType = "all" | "active" | "completed"
+// export type FilterValuesType = "all" | "active" | "completed"
 
 // todo replace in todolists-reducer
 export type TodolistType = {

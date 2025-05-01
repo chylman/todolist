@@ -1,65 +1,46 @@
-import {FilterValuesType, TaskType} from "@/app/App";
-import {TodoListTitle} from "@/TodoListTitle";
-import {AddItemForm} from "@/AddItemForm";
-import {TasksList} from "@/TasksList";
-import {FilterButtons} from "@/FilterButtons";
-import {useAppSelector} from "@/common/hooks/useAppSelector.ts";
-import {selectTasks} from "@/model/tasks-selectors.ts";
 import {useAppDispatch} from "@/common/hooks/useAppDispatch.ts";
-import {changeTodolistFilterAC} from "@/model/todolists-reducer.ts";
-import {changeTaskStatusAC, changeTaskTitleAC, deleteTaskAC} from "@/model/tasks-reducer.ts";
+import {createTaskAC} from "@/features/todolists/model/tasks-reducer";
+import {CreateItemForm} from "@/common/components/AddItemForm/CreateItemForm";
+import {Tasks} from "@/features/todolists/ui/todolists/todolistsItem/Tasks/Tasks";
+import {TodoListTitle} from "@/features/todolists/ui/todolists/todolistsItem/TodolistTitle/TodoListTitle";
+import {FilterButtons} from "@/features/todolists/ui/todolists/todolistsItem/FilterButtons/FilterButtons";
+import React from "react";
+import type {FilterValuesType} from "@/features/todolists/model/todolists-reducer";
 
 type Props = {
     id: string;
     title: string
-    deleteAllTasks: (todolistId: string) => void
-    createTask: (title: string, todolistId: string) => void
     activeFilter: FilterValuesType
-    deleteTodolist: (todolistId: string) => void
-    changeTodolistTitle: (title: string, todolistId: string) => void
-
 }
 
-export const TodolistItem = ({
+export const TodolistItem: React.FC<Props> = ({
                                  title,
-                                 deleteAllTasks,
-                                 createTask,
                                  activeFilter,
                                  id,
-                                 deleteTodolist,
-                                 changeTodolistTitle
-                             }: Props) => {
-    const tasks = useAppSelector(selectTasks);
+                             }) => {
     const dispatch = useAppDispatch();
 
-
-    let filtredTasks: Array<TaskType> = tasks;
-
-    if (activeFilter === 'all') {
-        filtredTasks = tasks[id];
-    }
-
-    if (activeFilter === 'active') {
-        filtredTasks = tasks[id].filter((t: TaskType) => !t.isDone);
-    }
-
-    if (activeFilter === 'completed') {
-        filtredTasks = tasks[id].filter((t: TaskType) => t.isDone);
+    const createTaskHandler = (title: string) => {
+        dispatch(createTaskAC({title, id}))
     }
 
     return (
         <div>
             <TodoListTitle title={title}
-                           deleteTodolistCallback={() => deleteTodolist(id)}
-                           changeTodolistTitle={(title: string) => changeTodolistTitle(title, id)}
+                           todolistId={id}
             ></TodoListTitle>
-            <AddItemForm maxTitleLength={12} createItem={(title: string) => createTask(title, id)}></AddItemForm>
-            <TasksList changeTaskStatus={(taskId, isDone) => dispatch(changeTaskStatusAC({taskId, isDone, todolistId: id}))} tasks={filtredTasks}
-                       deleteTask={(taskId: string) => dispatch(deleteTaskAC({taskId, todolistId: id}))}
-                       changeTaskTitle={(taskId: string, title: string) => dispatch(changeTaskTitleAC({taskId, title, todolistId: id}))}
-            ></TasksList>
-            <FilterButtons activeFilter={activeFilter} deleteAllTasks={() => deleteAllTasks(id)}
-                           changeTodoListFilter={(newFilterValue: FilterValuesType) => dispatch(changeTodolistFilterAC({filter: newFilterValue, id}))}></FilterButtons>
+            <CreateItemForm
+                onCreateItem={createTaskHandler}
+                maxTitleLength={12}
+            ></CreateItemForm>
+            <Tasks
+                todolistId={id}
+                activeFilter={activeFilter}
+            ></Tasks>
+            <FilterButtons
+                activeFilter={activeFilter}
+                todolistId={id}
+                ></FilterButtons>
         </div>
     );
 };

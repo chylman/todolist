@@ -1,9 +1,9 @@
 import React from 'react';
 import {Container, Grid} from "@mui/material";
-import {AddItemForm} from "@/AddItemForm.tsx";
 import {useAppDispatch} from "@/common/hooks/useAppDispatch.ts";
-import {createTodolistAC} from "@/model/todolists-reducer.ts";
-import {Todolists} from "@/Todolists.tsx";
+import {createTodolistAC} from "@/features/todolists/model/todolists-reducer";
+import {CreateItemForm} from "@/common/components/AddItemForm/CreateItemForm";
+import {Todolists} from "@/features/todolists/ui/todolists/Todolists";
 
 export const Main: React.FC = () => {
     const dispatch = useAppDispatch();
@@ -15,8 +15,8 @@ export const Main: React.FC = () => {
     return (
         <Container maxWidth="lg">
             <Grid container sx={{p: '20px'}}>
-                <AddItemForm
-                    createItem={createTodolists}
+                <CreateItemForm
+                    onCreateItem={createTodolists}
                     maxTitleLength={10}
                 />
             </Grid>

@@ -1,20 +1,31 @@
 import {Box, Button} from "@mui/material";
-import {FilterValuesType} from "@/app/App.tsx";
+import {changeTodolistFilterAC, type FilterValuesType} from "@/features/todolists/model/todolists-reducer";
+import {useDispatch} from "react-redux";
+import {deleteAllTasksAC} from "@/features/todolists/model/tasks-reducer";
+import React from "react";
 
-type FilterButtonsType = {
-    changeTodoListFilter: (newFilterValue: FilterValuesType) => void
-    deleteAllTasks: () => void
+type Props = {
     activeFilter: FilterValuesType
+    todolistId: string
 }
 
-export const FilterButtons = ({changeTodoListFilter, deleteAllTasks, activeFilter}: FilterButtonsType) => {
+export const FilterButtons: React.FC<Props> = ({activeFilter, todolistId}) => {
+    const dispatch = useDispatch();
+    const changeTodoListFilter= (newFilterValue: FilterValuesType) => (
+        dispatch(changeTodolistFilterAC({filter: newFilterValue, id: todolistId}))
+    )
+
+    const deleteAllTasks = (todolistId: string) => {
+        dispatch(deleteAllTasksAC({todolistId}));
+    };
+
     return (
         <Box sx={{display: 'flex', justifyContent: 'space-between'}}>
             <Button
                 variant={'contained'}
                 size="small"
                 disableElevation
-                onClick={() => deleteAllTasks()}>{'DELETE ALL'}
+                onClick={() => deleteAllTasks(todolistId)}>{'DELETE ALL'}
             </Button>
             <Button
                 variant={'contained'}

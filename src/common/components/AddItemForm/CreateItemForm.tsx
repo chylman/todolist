@@ -2,22 +2,20 @@ import {IconButton, TextField} from "@mui/material";
 import {ChangeEvent, KeyboardEvent, useState} from "react";
 import AddBoxIcon from '@mui/icons-material/AddBox';
 
-type AddItemFormProps = {
-    createItem: (title: string) => void
+type Props = {
+    onCreateItem: (title: string) => void
     maxTitleLength: number
-
 }
 
-export const AddItemForm = ({createItem, maxTitleLength}: AddItemFormProps) => {
+export const CreateItemForm = ({onCreateItem, maxTitleLength}: Props) => {
     const [itemInput, setItemInput] = useState<string>('');
     const [error, setError] = useState<boolean>(false);
     const isAddBtnDisabled = !itemInput || itemInput.length > maxTitleLength;
 
-
     const createItemHandler = () => {
         const trimmedTitle = itemInput.trim();
         if (trimmedTitle) {
-            createItem(trimmedTitle);
+            onCreateItem(trimmedTitle);
         } else {
             setError(true);
         }
@@ -35,7 +33,6 @@ export const AddItemForm = ({createItem, maxTitleLength}: AddItemFormProps) => {
             createItemHandler();
         }
     };
-
 
     return (
         <div>
