@@ -1,5 +1,5 @@
-import axios from "axios";
+import axios from 'axios'
 
-const instance = axios.create({
-    baseURL: 'https://api.example.com'
-});
+export const instance = axios.create({
+  baseURL: 'https://api.example.com',
+})
