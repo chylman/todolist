@@ -4,8 +4,8 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import { EditableSpan } from '@/common/components/EditableSpan/EditableSpan'
 import { useDispatch } from 'react-redux'
 import {
-  changeTodolistTitleAC,
-  deleteTodolistAC,
+  changeTodolistTitle,
+  deleteTodolist,
 } from '@/features/todolists/model/todolists-reducer'
 
 type Props = {
@@ -16,24 +16,24 @@ type Props = {
 export const TodoListTitle = ({ title, todolistId }: Props) => {
   const dispatch = useDispatch()
 
-  const deleteTodolist = () => {
-    dispatch(deleteTodolistAC({ id: todolistId }))
+  const deleteTodolistHandler = () => {
+    dispatch(deleteTodolist({ id: todolistId }))
   }
 
-  const changeTodolistTitle = () => {
-    dispatch(changeTodolistTitleAC({ id: todolistId, title }))
+  const changeTodolistTitleHandler = (title: string) => {
+    dispatch(changeTodolistTitle({ id: todolistId, title }))
   }
 
   return (
     <TitleWrapper>
       <Title>
         <EditableSpan
-          changeTitle={changeTodolistTitle}
+          changeTitle={changeTodolistTitleHandler}
           classes={''}
           title={title}
         />
       </Title>
-      <IconButton onClick={deleteTodolist}>
+      <IconButton onClick={deleteTodolistHandler}>
         <DeleteIcon />
       </IconButton>
     </TitleWrapper>

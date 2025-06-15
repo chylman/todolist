@@ -30,11 +30,11 @@ export const Tasks = ({ todolistId, activeFilter }: Props) => {
 
   return (
     <div>
-      {filtredTasks.length === 0 ? (
+      {filtredTasks?.length === 0 || filtredTasks === undefined ? (
         <p>Тасок нет</p>
       ) : (
         <List>
-          {filtredTasks.map((t) => {
+          {filtredTasks?.map((t) => {
             return <TaskItem key={t.id} task={t} todolistId={todolistId} />
           })}
         </List>

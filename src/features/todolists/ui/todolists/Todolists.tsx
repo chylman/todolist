@@ -9,7 +9,7 @@ export const Todolists: React.FC = () => {
 
   return (
     <>
-      {todolists.map((tl) => {
+      {todolists?.map((tl) => {
         return (
           <Grid key={tl.id}>
             <Paper elevation={8} sx={{ p: '20px' }}>

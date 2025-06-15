@@ -2,12 +2,12 @@ import { beforeEach, expect, test } from 'vitest'
 import type { TodolistType } from '../App'
 import {
   changeTodolistFilterAC,
-  changeTodolistTitleAC,
   createTodolistAC,
   deleteTodolistAC,
   todolistsReducer,
 } from './todolists-reducer'
 import { nanoid } from '@reduxjs/toolkit'
+import { changeTodolistTitle } from '../todolists-reducer'
 
 let todolistId1: string
 let todolistId2: string
@@ -44,7 +44,7 @@ test('correct todolist should change its title', () => {
   const title = 'New title'
   const endState = todolistsReducer(
     startState,
-    changeTodolistTitleAC({ id: todolistId2, title }),
+    changeTodolistTitle({ id: todolistId2, title }),
   )
 
   expect(endState[0].title).toBe('What to learn')
