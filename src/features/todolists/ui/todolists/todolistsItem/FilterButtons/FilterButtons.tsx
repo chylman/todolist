@@ -2,7 +2,7 @@ import { Box, Button } from '@mui/material'
 import {
   changeTodolistFilterAC,
   type FilterValuesType,
-} from '@/features/todolists/model/todolists-reducer'
+} from '@/features/todolists/model/todolistsSlice'
 import { useDispatch } from 'react-redux'
 import { deleteAllTasksAC } from '@/features/todolists/model/tasks-reducer'
 import React from 'react'

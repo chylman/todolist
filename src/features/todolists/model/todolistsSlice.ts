@@ -1,4 +1,4 @@
-import { createAction, createReducer, nanoid } from '@reduxjs/toolkit'
+import { createAction, nanoid } from '@reduxjs/toolkit'
 import { TodolistType } from '@/app/App.tsx'
 import { createAppSlice } from '@/common/utils/createAppSlice.ts'
 
@@ -37,13 +37,6 @@ export const todolistsSlice = createAppSlice({
       if (index !== -1) state[index].filter = action.payload.filter
     }),
   }),
-})
-
-export const _todolistsReducer = createReducer(initialState, (builder) => {
-  builder.addCase(changeTodolistFilterAC, (state, action) => {
-    const index = state.findIndex((todo) => todo.id === action.payload.id)
-    if (index !== -1) state[index].filter = action.payload.filter
-  })
 })
 
 export const {

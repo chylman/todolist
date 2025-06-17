@@ -1,5 +1,5 @@
 import { useAppDispatch } from '@/common/hooks/useAppDispatch.ts'
-import { createTaskAC } from '@/features/todolists/model/tasks-reducer'
+import { createTask } from '@/features/todolists/model/tasks-reducer'
 import { CreateItemForm } from '@/common/components/AddItemForm/CreateItemForm'
 import { Tasks } from '@/features/todolists/ui/todolists/todolistsItem/Tasks/Tasks'
 import { TodoListTitle } from '@/features/todolists/ui/todolists/todolistsItem/TodolistTitle/TodoListTitle'
@@ -17,7 +17,7 @@ export const TodolistItem: React.FC<Props> = ({ title, activeFilter, id }) => {
   const dispatch = useAppDispatch()
 
   const createTaskHandler = (title: string) => {
-    dispatch(createTaskAC({ title, id }))
+    dispatch(createTask({ title, id }))
   }
 
   return (

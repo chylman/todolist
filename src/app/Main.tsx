@@ -1,7 +1,7 @@
 import React from 'react'
 import { Container, Grid } from '@mui/material'
-import { useAppDispatch } from '@/common/hooks/useAppDispatch.ts'
-import { createTodolist } from '@/features/todolists/model/todolists-reducer'
+import { useAppDispatch } from '@/common/hooks/useAppDispatch'
+import { createTodolist } from '@/features/todolists/model/todolistsSlice'
 import { CreateItemForm } from '@/common/components/AddItemForm/CreateItemForm'
 import { Todolists } from '@/features/todolists/ui/todolists/Todolists'
 

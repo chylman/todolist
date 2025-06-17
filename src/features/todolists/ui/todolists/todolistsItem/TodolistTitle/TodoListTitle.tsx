@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux'
 import {
   changeTodolistTitle,
   deleteTodolist,
-} from '@/features/todolists/model/todolists-reducer'
+} from '@/features/todolists/model/todolistsSlice.ts'
 
 type Props = {
   title: string
