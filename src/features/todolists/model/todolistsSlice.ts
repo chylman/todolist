@@ -15,9 +15,11 @@ export const todolistsSlice = createAppSlice({
   name: 'todolists',
   initialState,
   reducers: (create) => ({
-    createTodolist: create.reducer<{ title: string }>((state, action) => {
-      state.push({ title: action.payload.title, filter: 'all', id: nanoid() })
-    }),
+    createTodolist: create.reducer<{ title: string; id?: string }>(
+      (state, action) => {
+        state.push({ title: action.payload.title, filter: 'all', id: nanoid() })
+      },
+    ),
     deleteTodolist: create.reducer<{ id: string }>((state, action) => {
       const index = state.findIndex((todo) => todo.id === action.payload.id)
       if (index !== -1) state.splice(index, 1)

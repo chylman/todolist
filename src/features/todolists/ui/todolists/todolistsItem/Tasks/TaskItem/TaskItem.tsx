@@ -6,9 +6,9 @@ import { useDispatch } from 'react-redux'
 import { getListItemSx } from '@/TaskList.styles'
 import { EditableSpan } from '@/common/components/EditableSpan/EditableSpan'
 import {
-  changeTaskStatusAC,
-  changeTaskTitleAC,
-  deleteTaskAC,
+  changeTaskStatus,
+  changeTaskTitle,
+  deleteTask,
 } from '@/features/todolists/model/tasks-reducer'
 
 type Props = {
@@ -19,15 +19,15 @@ type Props = {
 export const TaskItem: React.FC<Props> = ({ task, todolistId }) => {
   const dispatch = useDispatch()
 
-  const deleteTask = (taskId: string) => {
-    dispatch(deleteTaskAC({ taskId, todolistId }))
+  const deleteTaskHanler = (taskId: string) => {
+    dispatch(deleteTask({ taskId, todolistId }))
   }
 
-  const changeTaskTitle = (taskId: string, title: string) =>
-    dispatch(changeTaskTitleAC({ taskId, title, todolistId }))
+  const changeTaskTitleHandler = (taskId: string, title: string) =>
+    dispatch(changeTaskTitle({ taskId, title, todolistId }))
 
-  const changeTaskStatus = (taskId: string, isDone: boolean) =>
-    dispatch(changeTaskStatusAC({ taskId, isDone, todolistId }))
+  const changeTaskStatusHanler = (taskId: string, isDone: boolean) =>
+    dispatch(changeTaskStatus({ taskId, isDone, todolistId }))
 
   return (
     <ListItem disablePadding sx={getListItemSx(task.isDone)}>
@@ -35,16 +35,20 @@ export const TaskItem: React.FC<Props> = ({ task, todolistId }) => {
         <label>
           <Checkbox
             size="small"
-            onChange={(e) => changeTaskStatus(task.id, e.currentTarget.checked)}
+            onChange={(e) =>
+              changeTaskStatusHanler(task.id, e.currentTarget.checked)
+            }
             checked={task.isDone}
           />
           <EditableSpan
             title={task.title}
-            changeTitle={(title: string) => changeTaskTitle(task.id, title)}
+            changeTitle={(title: string) =>
+              changeTaskTitleHandler(task.id, title)
+            }
           />
         </label>
       </Box>
-      <IconButton size="small" onClick={() => deleteTask(task.id)}>
+      <IconButton size="small" onClick={() => deleteTaskHanler(task.id)}>
         <ClearIcon />
       </IconButton>
     </ListItem>

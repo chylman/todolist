@@ -1,10 +1,11 @@
 import { Box, Button } from '@mui/material'
 import {
+  changeTodolistFilter,
   changeTodolistFilterAC,
   type FilterValuesType,
 } from '@/features/todolists/model/todolistsSlice'
 import { useDispatch } from 'react-redux'
-import { deleteAllTasksAC } from '@/features/todolists/model/tasks-reducer'
+import { deleteAllTasks } from '@/features/todolists/model/tasks-reducer'
 import React from 'react'
 
 type Props = {
@@ -17,11 +18,11 @@ export const FilterButtons: React.FC<Props> = ({
   todolistId,
 }) => {
   const dispatch = useDispatch()
-  const changeTodoListFilter = (newFilterValue: FilterValuesType) =>
-    dispatch(changeTodolistFilterAC({ filter: newFilterValue, id: todolistId }))
+  const changeTodoListFilterHandler = (newFilterValue: FilterValuesType) =>
+    dispatch(changeTodolistFilter({ filter: newFilterValue, id: todolistId }))
 
-  const deleteAllTasks = (todolistId: string) => {
-    dispatch(deleteAllTasksAC({ todolistId }))
+  const deleteAllTasksHandler = (todolistId: string) => {
+    dispatch(deleteAllTasks({ todolistId }))
   }
 
   return (
@@ -30,7 +31,7 @@ export const FilterButtons: React.FC<Props> = ({
         variant={'contained'}
         size="small"
         disableElevation
-        onClick={() => deleteAllTasks(todolistId)}
+        onClick={() => deleteAllTasksHandler(todolistId)}
       >
         {'DELETE ALL'}
       </Button>
@@ -39,7 +40,7 @@ export const FilterButtons: React.FC<Props> = ({
         size="small"
         color={activeFilter === 'all' ? 'secondary' : 'primary'}
         disableElevation
-        onClick={() => changeTodoListFilter('all')}
+        onClick={() => changeTodoListFilterHandler('all')}
       >
         All
       </Button>
@@ -48,7 +49,7 @@ export const FilterButtons: React.FC<Props> = ({
         size="small"
         color={activeFilter === 'active' ? 'secondary' : 'primary'}
         disableElevation
-        onClick={() => changeTodoListFilter('active')}
+        onClick={() => changeTodoListFilterHandler('active')}
       >
         Active
       </Button>
@@ -57,7 +58,7 @@ export const FilterButtons: React.FC<Props> = ({
         size="small"
         color={activeFilter === 'completed' ? 'secondary' : 'primary'}
         disableElevation
-        onClick={() => changeTodoListFilter('completed')}
+        onClick={() => changeTodoListFilterHandler('completed')}
       >
         Completed
       </Button>
