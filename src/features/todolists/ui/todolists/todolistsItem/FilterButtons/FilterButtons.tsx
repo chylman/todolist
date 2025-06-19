@@ -5,7 +5,7 @@ import {
   type FilterValuesType,
 } from '@/features/todolists/model/todolistsSlice'
 import { useDispatch } from 'react-redux'
-import { deleteAllTasks } from '@/features/todolists/model/tasks-reducer'
+import { deleteAllTasks } from '@/features/todolists/model/tasksSlice'
 import React from 'react'
 
 type Props = {

@@ -86,4 +86,4 @@ export const {
   deleteAllTasks,
 } = taskSlice.actions
 
-export const tasksReducer = taskSlice.reducer
+export const tasksSlice = taskSlice.reducer

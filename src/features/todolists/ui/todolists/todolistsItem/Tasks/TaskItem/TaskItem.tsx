@@ -9,7 +9,7 @@ import {
   changeTaskStatus,
   changeTaskTitle,
   deleteTask,
-} from '@/features/todolists/model/tasks-reducer'
+} from '@/features/todolists/model/tasksSlice'
 
 type Props = {
   task: TaskType
