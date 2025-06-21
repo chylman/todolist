@@ -15,9 +15,17 @@ export const todolistsSlice = createAppSlice({
   name: 'todolists',
   initialState,
   reducers: (create) => ({
-    createTodolist: create.reducer<{ title: string; id?: string }>(
+    createTodolist: create.preparedReducer(
+      (title: { title: string }) => {
+        const id = nanoid()
+        return { payload: { title: title.title, id } }
+      },
       (state, action) => {
-        state.push({ title: action.payload.title, filter: 'all', id: nanoid() })
+        state.push({
+          id: action.payload.id,
+          title: action.payload.title,
+          filter: 'all',
+        })
       },
     ),
     deleteTodolist: create.reducer<{ id: string }>((state, action) => {

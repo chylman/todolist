@@ -67,7 +67,6 @@ export const taskSlice = createSlice({
     }),
   }),
   extraReducers: (builder) => {
-    // todo resolve problem with create array tasks when create create reducer
     builder.addCase(
       createTodolist,
       (state, action: PayloadAction<{ id: string }>) => {
