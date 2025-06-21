@@ -8,12 +8,11 @@ import {
   Toolbar,
 } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'
-import { changeThemeModeAC } from '@/app/app-reducer.ts'
-import { useAppDispatch } from '@/common/hooks/useAppDispatch.ts'
-import { useAppSelector } from '@/common/hooks/useAppSelector.ts'
-import { getTheme } from '@/common/theme/theme.ts'
-import { selectThemeMode } from '@/features/todolists/model/app-selectors'
+import { changeThemeMode, selectThemeMode } from '@/app/appSlice'
 import { NavButton } from '@/common/components/NavButton/NavButton'
+import { useAppDispatch } from '@/common/hooks/useAppDispatch'
+import { useAppSelector } from '@/common/hooks/useAppSelector'
+import { getTheme } from '@/common/theme/theme'
 
 export const Header: React.FC = () => {
   const themeMode = useAppSelector(selectThemeMode)
@@ -24,7 +23,7 @@ export const Header: React.FC = () => {
 
   const changeMode = () => {
     dispatch(
-      changeThemeModeAC({
+      changeThemeMode({
         themeMode: themeMode === 'light' ? 'dark' : 'light',
       }),
     )

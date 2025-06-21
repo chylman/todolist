@@ -3,7 +3,7 @@ import { type TaskType } from '@/app/App.tsx'
 import { useSelector } from 'react-redux'
 import { selectTasks } from '@/features/todolists/model/tasks-selectors'
 import { TaskItem } from '@/features/todolists/ui/todolists/todolistsItem/Tasks/TaskItem/TaskItem'
-import type { FilterValuesType } from '@/features/todolists/model/todolists-reducer'
+import type { FilterValuesType } from '@/features/todolists/model/todolistsSlice'
 
 type Props = {
   todolistId: string

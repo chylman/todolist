@@ -3,9 +3,9 @@ import { CssBaseline, ThemeProvider } from '@mui/material'
 import { useAppSelector } from '@/common/hooks/useAppSelector'
 import { getTheme } from '@/common/theme/theme.ts'
 import { Main } from '@/app/Main.tsx'
-import { selectThemeMode } from '@/features/todolists/model/app-selectors'
 import { Header } from '@/common/components/Header/Header'
-import type { FilterValuesType } from '@/features/todolists/model/todolists-reducer'
+import type { FilterValuesType } from '@/features/todolists/model/todolistsSlice'
+import { selectThemeMode } from '@/app/appSlice'
 
 export type TaskType = {
   title: string
@@ -13,12 +13,6 @@ export type TaskType = {
   isDone: boolean
 }
 
-// todo replace in tasks-reducer
-
-// todo replace in todolists-reducer
-// export type FilterValuesType = "all" | "active" | "completed"
-
-// todo replace in todolists-reducer
 export type TodolistType = {
   id: string
   title: string

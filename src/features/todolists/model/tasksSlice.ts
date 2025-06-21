@@ -7,7 +7,6 @@ export type TaskStateType = {
 }
 
 const initialState: TaskStateType = {}
-// todo rename file task-reducer
 
 export const taskSlice = createSlice({
   name: 'tasks',
@@ -86,4 +85,4 @@ export const {
   deleteAllTasks,
 } = taskSlice.actions
 
-export const tasksSlice = taskSlice.reducer
+export const tasksReducer = taskSlice.reducer
