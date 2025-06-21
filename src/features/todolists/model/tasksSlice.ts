@@ -1,6 +1,6 @@
 import { createSlice, nanoid, PayloadAction } from '@reduxjs/toolkit'
-import { type TaskType } from '@/app/App.tsx'
-import { createTodolist } from '@/features/todolists/model/todolistsSlice.ts'
+import { TaskType } from '@/app/App'
+import { createTodolist } from '@/features/todolists/model/todolistsSlice'
 
 export type TaskStateType = {
   [todolistId: string]: TaskType[]
