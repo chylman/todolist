@@ -14,6 +14,9 @@ const initialState: TodolistType[] = []
 export const todolistsSlice = createAppSlice({
   name: 'todolists',
   initialState,
+  selectors: {
+    selectTodolists: (state) => state,
+  },
   reducers: (create) => ({
     createTodolist: create.preparedReducer(
       (title: { title: string }) => {
@@ -55,4 +58,6 @@ export const {
   changeTodolistTitle,
   changeTodolistFilter,
 } = todolistsSlice.actions
+export const { selectTodolists } = todolistsSlice.selectors
+
 export const todolistsReducer = todolistsSlice.reducer

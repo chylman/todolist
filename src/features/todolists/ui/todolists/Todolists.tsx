@@ -1,12 +1,10 @@
-import React from 'react'
 import { Grid, Paper } from '@mui/material'
-import { useAppSelector } from '@/common/hooks/useAppSelector.ts'
-import { selectTodolists } from '@/features/todolists/model/todolists-selectors'
 import { TodolistItem } from '@/features/todolists/ui/todolists/todolistsItem/TodolistItem'
+import { selectTodolists } from '@/features/todolists/model/todolistsSlice'
+import { useAppSelector } from '@/common/hooks/useAppSelector'
 
-export const Todolists: React.FC = () => {
+export const Todolists = () => {
   const todolists = useAppSelector(selectTodolists)
-
   return (
     <>
       {todolists?.map((tl) => {

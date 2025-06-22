@@ -1,10 +1,10 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createAppSlice } from '@/common/utils/createAppSlice'
 
 const initialState = {
   themeMode: 'light' as ThemeMode,
 }
 
-export const appSlice = createSlice({
+export const appSlice = createAppSlice({
   name: 'app',
   initialState,
   selectors: {

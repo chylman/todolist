@@ -1,9 +1,10 @@
-import { createSlice, nanoid, PayloadAction } from '@reduxjs/toolkit'
+import { nanoid, PayloadAction } from '@reduxjs/toolkit'
 import { TaskType } from '@/app/App'
 import {
   createTodolist,
   deleteTodolist,
 } from '@/features/todolists/model/todolistsSlice'
+import { createAppSlice } from '@/common/utils/createAppSlice'
 
 export type TaskStateType = {
   [todolistId: string]: TaskType[]
@@ -11,9 +12,12 @@ export type TaskStateType = {
 
 const initialState: TaskStateType = {}
 
-export const taskSlice = createSlice({
+export const taskSlice = createAppSlice({
   name: 'tasks',
   initialState,
+  selectors: {
+    selectTasks: (state) => state,
+  },
   reducers: (create) => ({
     createTask: create.reducer<{ title: string; id: string }>(
       (state, action) => {
@@ -93,5 +97,6 @@ export const {
   changeTaskTitle,
   deleteAllTasks,
 } = taskSlice.actions
+export const { selectTasks } = taskSlice.selectors
 
 export const tasksReducer = taskSlice.reducer
