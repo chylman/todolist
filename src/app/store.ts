@@ -5,15 +5,17 @@ import {
   todolistsReducer,
   todolistsSlice,
 } from '@/features/todolists/model/todolistsSlice.ts'
-import { taskSlice } from '@/features/todolists/model/tasksSlice.ts'
+import {
+  tasksSlice,
+  tasksReducer,
+} from '@/features/todolists/model/tasksSlice.ts'
 import { setupListeners } from '@reduxjs/toolkit/query'
 
-// объединение reducer'ов с помощью combineReducers
-const store = configureStore({
+export const store = configureStore({
   reducer: {
     [appSlice.name]: appReducer,
     [todolistsSlice.name]: todolistsReducer,
-    [tasksSlice.name]: taskSlice,
+    [tasksSlice.name]: tasksReducer,
     [todolistsApi.reducerPath]: todolistsApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>

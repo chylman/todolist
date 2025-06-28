@@ -1,10 +1,9 @@
 import { Grid, Paper } from '@mui/material'
-import { TodolistItem } from '@/features/todolists/ui/todolists/todolistsItem/TodolistItem'
-import { selectTodolists } from '@/features/todolists/model/todolistsSlice'
-import { useAppSelector } from '@/common/hooks/useAppSelector'
+import { TodolistItem } from '@/features/todolists/ui/Todolists/todolistsItem/TodolistItem.tsx'
+import { useGetTodolistsQuery } from '@/features/todolists/api/todolistsApi.ts'
 
 export const Todolists = () => {
-  const todolists = useAppSelector(selectTodolists)
+  const { data: todolists } = useGetTodolistsQuery()
   return (
     <>
       {todolists?.map((tl) => {

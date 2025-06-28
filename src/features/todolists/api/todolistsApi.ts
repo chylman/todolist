@@ -5,7 +5,7 @@ import { Todolist } from '@/features/todolists/api/todolistApi.types'
 export const todolistsApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getTodolists: builder.query<DomainTodolist[], void>({
-      query: () => 'todolists',
+      query: () => '/todolists',
       transformResponse: (todolists: Todolist[]): DomainTodolist[] =>
         todolists.map((todolist) => ({
           ...todolist,
@@ -16,6 +16,8 @@ export const todolistsApi = baseApi.injectEndpoints({
     }),
   }),
 })
+
+export const { useGetTodolistsQuery } = todolistsApi
 
 // export const _todolistsApi = {
 //   getTodolists() {
