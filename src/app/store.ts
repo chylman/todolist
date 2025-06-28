@@ -6,6 +6,7 @@ import {
   todolistsSlice,
 } from '@/features/todolists/model/todolistsSlice.ts'
 import { taskSlice } from '@/features/todolists/model/tasksSlice.ts'
+import { setupListeners } from '@reduxjs/toolkit/query'
 
 // объединение reducer'ов с помощью combineReducers
 const store = configureStore({
@@ -25,6 +26,8 @@ const store = configureStore({
 export type RootState = ReturnType<typeof store.getState>
 // автоматическое определение типа метода dispatch
 export type AppDispatch = typeof store.dispatch
+
+setupListeners(store.dispatch)
 
 // для возможности обращения к store в консоли браузера
 // @ts-ignore
