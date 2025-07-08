@@ -9,17 +9,27 @@ import TextField from '@mui/material/TextField'
 import { useSelector } from 'react-redux'
 import { getTheme } from '@/common/theme/theme.ts'
 import { Grid } from '@mui/material'
+import { useForm } from 'react-hook-form'
 
 type LoginInputs = {
   email: string
   password: string
-  rememberMe: string
+  rememberMe: boolean
 }
 
 export const Login = () => {
   const themeMode = useSelector(selectThemeMode)
 
   const theme = getTheme(themeMode)
+  const {
+    register,
+    handleSubmit,
+    reset,
+    control,
+    formState: { errors },
+  } = useForm<LoginInputs>({
+    defaultValues: { email: '', password: '', rememberMe: false },
+  })
 
   return (
     <Grid container justifyContent={'center'}>
@@ -45,9 +55,18 @@ export const Login = () => {
           </p>
         </FormLabel>
         <FormGroup>
-          <TextField label="Email" margin="normal" />
-          <TextField type="password" label="Password" margin="normal" />
-          <FormControlLabel label="Remember me" control={<Checkbox />} />
+          <TextField label="Email" margin="normal" {...register('email')} />
+          <TextField
+            type="password"
+            label="Password"
+            margin="normal"
+            {...register('password')}
+          />
+          <FormControlLabel
+            label="Remember me"
+            control={<Checkbox />}
+            {...register('rememberMe')}
+          />
           <Button type="submit" variant="contained" color="primary">
             Login
           </Button>
