@@ -3,7 +3,7 @@ import { Login } from '@/features/auth/ui/Login'
 import { Route, Routes } from 'react-router'
 import { PageNotFound } from '@/common/components/PageNotFound/PageNotFound.tsx'
 
-const Path = {
+export const Path = {
   Main: '/',
   Login: 'login',
   PageNotFound: '*',

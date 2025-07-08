@@ -10,6 +10,12 @@ import { useSelector } from 'react-redux'
 import { getTheme } from '@/common/theme/theme.ts'
 import { Grid } from '@mui/material'
 
+type LoginInputs = {
+  email: string
+  password: string
+  rememberMe: string
+}
+
 export const Login = () => {
   const themeMode = useSelector(selectThemeMode)
 
