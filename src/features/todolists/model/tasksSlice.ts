@@ -12,7 +12,7 @@ export type TaskStateType = {
 
 const initialState: TaskStateType = {}
 
-export const taskSlice = createAppSlice({
+export const tasksSlice = createAppSlice({
   name: 'tasks',
   initialState,
   selectors: {
@@ -96,7 +96,7 @@ export const {
   changeTaskStatus,
   changeTaskTitle,
   deleteAllTasks,
-} = taskSlice.actions
-export const { selectTasks } = taskSlice.selectors
+} = tasksSlice.actions
+export const { selectTasks } = tasksSlice.selectors
 
-export const tasksReducer = taskSlice.reducer
+export const tasksReducer = tasksSlice.reducer

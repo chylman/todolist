@@ -13,6 +13,8 @@ import { NavButton } from '@/common/components/NavButton/NavButton'
 import { useAppDispatch } from '@/common/hooks/useAppDispatch'
 import { useAppSelector } from '@/common/hooks/useAppSelector'
 import { getTheme } from '@/common/theme/theme'
+import { NavLink } from 'react-router'
+import { Path } from '@/common/routing'
 
 export const Header: React.FC = () => {
   const themeMode = useAppSelector(selectThemeMode)
@@ -40,7 +42,9 @@ export const Header: React.FC = () => {
             <MenuIcon />
           </IconButton>
           <Box>
-            <NavButton>Sign in</NavButton>
+            <NavLink to={Path.Login}>
+              <NavButton>Sign in</NavButton>
+            </NavLink>{' '}
             <NavButton>Sign up</NavButton>
             <NavButton background={theme.palette.secondary.light}>
               Faq

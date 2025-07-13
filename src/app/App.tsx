@@ -2,10 +2,10 @@ import './App.css'
 import { CssBaseline, ThemeProvider } from '@mui/material'
 import { useAppSelector } from '@/common/hooks/useAppSelector'
 import { getTheme } from '@/common/theme/theme.ts'
-import { Main } from '@/app/Main.tsx'
 import { Header } from '@/common/components/Header/Header'
 import type { FilterValuesType } from '@/features/todolists/model/todolistsSlice'
 import { selectThemeMode } from '@/app/appSlice'
+import { Routing } from '@/common/routing'
 
 export type TaskType = {
   title: string
@@ -28,7 +28,7 @@ export const App = () => {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Header />
-        <Main />
+        <Routing />
       </ThemeProvider>
     </div>
   )
