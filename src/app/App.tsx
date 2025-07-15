@@ -4,8 +4,12 @@ import { useAppSelector } from '@/common/hooks/useAppSelector'
 import { getTheme } from '@/common/theme/theme.ts'
 import { Header } from '@/common/components/Header/Header'
 import type { FilterValuesType } from '@/features/todolists/model/todolistsSlice'
-import { selectThemeMode } from '@/app/appSlice'
+import { selectThemeMode, setIsLoggedIn } from '@/app/appSlice'
 import { Routing } from '@/common/routing'
+import { useEffect } from 'react'
+import { useMeQuery } from '@/features/auth/api/authApi.ts'
+import { ResultCode } from '@/common/enums'
+import { useAppDispatch } from '@/common/hooks/useAppDispatch.ts'
 
 export type TaskType = {
   title: string
@@ -22,6 +26,15 @@ export type TodolistType = {
 export const App = () => {
   const themeMode = useAppSelector(selectThemeMode)
   const theme = getTheme(themeMode)
+  const dispatch = useAppDispatch()
+  const { data, isLoading } = useMeQuery()
+
+  useEffect(() => {
+    if (isLoading) return
+    if (data?.resultCode === ResultCode.Success) {
+      dispatch(setIsLoggedIn({ isLoggedIn: true }))
+    }
+  }, [isLoading])
 
   return (
     <div className="app">

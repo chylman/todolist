@@ -7,6 +7,7 @@ import {
   changeTodolistTitle,
   deleteTodolist,
 } from '@/features/todolists/model/todolistsSlice.ts'
+import { useRemoveTodolistMutation } from '@/features/todolists/api/todolistsApi.ts'
 
 type Props = {
   title: string
@@ -15,9 +16,11 @@ type Props = {
 
 export const TodoListTitle = ({ title, todolistId }: Props) => {
   const dispatch = useDispatch()
+  const [removeTodolist] = useRemoveTodolistMutation()
 
   const deleteTodolistHandler = () => {
-    dispatch(deleteTodolist({ id: todolistId }))
+    removeTodolist(todolistId)
+    // dispatch(deleteTodolist({ id: todolistId }))
   }
 
   const changeTodolistTitleHandler = (title: string) => {

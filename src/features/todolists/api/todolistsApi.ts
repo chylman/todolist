@@ -1,5 +1,5 @@
 import { baseApi } from '@/app/baseApi'
-import { DomainTodolist } from '@/common/types'
+import { BaseResponse, DomainTodolist } from '@/common/types'
 import { Todolist } from '@/features/todolists/api/todolistApi.types'
 
 export const todolistsApi = baseApi.injectEndpoints({
@@ -14,10 +14,27 @@ export const todolistsApi = baseApi.injectEndpoints({
         })),
       providesTags: ['Todolist'],
     }),
+    addTodolist: builder.mutation<BaseResponse<{ item: Todolist }>, string>({
+      query: (title) => ({
+        url: 'todo-lists',
+        method: 'POST',
+        body: { title },
+      }),
+    }),
+    removeTodolist: builder.mutation<BaseResponse<{}>, string>({
+      query: (id) => ({
+        url: `/todo-lists/${id}`,
+        method: 'DELETE',
+      }),
+    }),
   }),
 })
 
-export const { useGetTodolistsQuery } = todolistsApi
+export const {
+  useGetTodolistsQuery,
+  useAddTodolistMutation,
+  useRemoveTodolistMutation,
+} = todolistsApi
 
 // export const _todolistsApi = {
 //   getTodolists() {

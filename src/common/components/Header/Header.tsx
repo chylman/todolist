@@ -1,4 +1,3 @@
-import React from 'react'
 import {
   AppBar,
   Box,
@@ -8,17 +7,26 @@ import {
   Toolbar,
 } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'
-import { changeThemeMode, selectThemeMode } from '@/app/appSlice'
+import {
+  changeThemeMode,
+  selectIsLoggedIn,
+  selectThemeMode,
+  setIsLoggedIn,
+} from '@/app/appSlice'
 import { NavButton } from '@/common/components/NavButton/NavButton'
 import { useAppDispatch } from '@/common/hooks/useAppDispatch'
 import { useAppSelector } from '@/common/hooks/useAppSelector'
 import { getTheme } from '@/common/theme/theme'
 import { NavLink } from 'react-router'
 import { Path } from '@/common/routing'
+import { useLogoutMutation } from '@/features/auth/api/authApi.ts'
+import { ResultCode } from '@/common/enums'
+import { AUTH_TOKEN } from '@/common/constants'
 
-export const Header: React.FC = () => {
+export const Header = () => {
   const themeMode = useAppSelector(selectThemeMode)
-
+  const isLoggedIn = useAppSelector(selectIsLoggedIn)
+  const [logout] = useLogoutMutation()
   const dispatch = useAppDispatch()
 
   const theme = getTheme(themeMode)
@@ -29,6 +37,15 @@ export const Header: React.FC = () => {
         themeMode: themeMode === 'light' ? 'dark' : 'light',
       }),
     )
+  }
+
+  const signOutClickHandler = () => {
+    logout().then((res) => {
+      if (res.data?.resultCode === ResultCode.Success) {
+        dispatch(setIsLoggedIn({ isLoggedIn: false }))
+        localStorage.removeItem(AUTH_TOKEN)
+      }
+    })
   }
 
   return (
@@ -42,10 +59,14 @@ export const Header: React.FC = () => {
             <MenuIcon />
           </IconButton>
           <Box>
-            <NavLink to={Path.Login}>
-              <NavButton>Sign in</NavButton>
-            </NavLink>{' '}
-            <NavButton>Sign up</NavButton>
+            {!isLoggedIn && (
+              <NavLink to={Path.Login}>
+                <NavButton>Sign in</NavButton>
+              </NavLink>
+            )}
+            {isLoggedIn && (
+              <NavButton onClick={signOutClickHandler}>Sign Out</NavButton>
+            )}
             <NavButton background={theme.palette.secondary.light}>
               Faq
             </NavButton>
