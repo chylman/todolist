@@ -1,4 +1,3 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { BaseResponse } from '@/common/types'
 import { LoginInputs } from '@/features/auth/lib/schemas/loginSchema.ts'
 import { baseApi } from '@/app/baseApi.ts'

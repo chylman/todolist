@@ -16,11 +16,15 @@ import {
   loginSchema,
 } from '@/features/auth/lib/schemas/loginSchema.ts'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useLoginMutation } from '@/features/auth/api/authApi.ts'
+import { ResultCode } from '@/common/enums'
+import { AUTH_TOKEN } from '@/common/constants'
 
 export const Login = () => {
   const themeMode = useSelector(selectThemeMode)
-
   const theme = getTheme(themeMode)
+  const [login] = useLoginMutation()
+
   const {
     register,
     handleSubmit,
@@ -33,7 +37,12 @@ export const Login = () => {
   })
 
   const onSubmit: SubmitHandler<LoginInputs> = (data) => {
-    console.log(data)
+    login(data).then((res) => {
+      if (res.data?.resultCode === ResultCode.Success) {
+        localStorage.setItem(AUTH_TOKEN, res.data.data.token)
+      }
+    })
+
     reset()
   }
 
