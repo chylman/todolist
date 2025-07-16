@@ -5,7 +5,7 @@ import { useAppSelector } from '@/common/hooks/useAppSelector.ts'
 import { selectIsLoggedIn } from '@/app/appSlice.ts'
 import { Path } from '@/common/routing'
 import { useAddTodolistMutation } from '@/features/todolists/api/todolistsApi.ts'
-import { Todolists } from '@/features/todolists/ui/todolists/Todolists'
+import { Todolists } from '@/features/todolists/ui/Todolists/Todolists.tsx'
 
 export const Main = () => {
   const isLoggedIn = useAppSelector(selectIsLoggedIn)
