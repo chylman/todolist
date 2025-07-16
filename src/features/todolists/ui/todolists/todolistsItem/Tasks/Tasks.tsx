@@ -1,9 +1,8 @@
 import { List } from '@mui/material'
-import { type TaskType } from '@/app/App.tsx'
-import { useSelector } from 'react-redux'
-import { TaskItem } from '@/features/todolists/ui/todolists/todolistsItem/Tasks/TaskItem/TaskItem'
 import type { FilterValuesType } from '@/features/todolists/model/todolistsSlice'
-import { selectTasks } from '@/features/todolists/model/tasksSlice'
+import { TaskItem } from './TaskItem/TaskItem'
+import { useGetTasksQuery } from '@/features/todolists/api/tasksApi.ts'
+import { TaskStatus } from '@/common/enums'
 
 type Props = {
   todolistId: string
@@ -11,21 +10,17 @@ type Props = {
 }
 
 export const Tasks = ({ todolistId, activeFilter }: Props) => {
-  const tasks = useSelector(selectTasks)
-  const todolistTasks = tasks[todolistId]
-
-  let filtredTasks: TaskType[] = todolistTasks
-
-  if (activeFilter === 'all') {
-    filtredTasks = tasks[todolistId]
-  }
+  const { data } = useGetTasksQuery(todolistId)
+  let filtredTasks = data?.items
 
   if (activeFilter === 'active') {
-    filtredTasks = tasks[todolistId].filter((t: TaskType) => !t.isDone)
+    filtredTasks = filtredTasks?.filter((t) => t.status === TaskStatus.New)
   }
 
   if (activeFilter === 'completed') {
-    filtredTasks = tasks[todolistId].filter((t: TaskType) => t.isDone)
+    filtredTasks = filtredTasks?.filter(
+      (t) => t.status === TaskStatus.Completed,
+    )
   }
 
   return (

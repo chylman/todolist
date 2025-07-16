@@ -1,7 +1,6 @@
 import React from 'react'
 import { Box, Checkbox, IconButton, ListItem } from '@mui/material'
 import ClearIcon from '@mui/icons-material/Clear'
-import type { TaskType } from '@/app/App'
 import { useDispatch } from 'react-redux'
 import { getListItemSx } from '@/TaskList.styles'
 import { EditableSpan } from '@/common/components/EditableSpan/EditableSpan'
@@ -10,14 +9,17 @@ import {
   changeTaskTitle,
   deleteTask,
 } from '@/features/todolists/model/tasksSlice'
+import { DomainTask } from '@/features/todolists/api/tasksApi.type.ts'
+import { TaskStatus } from '@/common/enums'
 
 type Props = {
-  task: TaskType
+  task: DomainTask
   todolistId: string
 }
 
 export const TaskItem: React.FC<Props> = ({ task, todolistId }) => {
   const dispatch = useDispatch()
+  const isDone = task.status === TaskStatus.Completed
 
   const deleteTaskHanler = (taskId: string) => {
     dispatch(deleteTask({ taskId, todolistId }))
@@ -30,7 +32,7 @@ export const TaskItem: React.FC<Props> = ({ task, todolistId }) => {
     dispatch(changeTaskStatus({ taskId, isDone, todolistId }))
 
   return (
-    <ListItem disablePadding sx={getListItemSx(task.isDone)}>
+    <ListItem disablePadding sx={getListItemSx(isDone)}>
       <Box>
         <label>
           <Checkbox
@@ -38,7 +40,7 @@ export const TaskItem: React.FC<Props> = ({ task, todolistId }) => {
             onChange={(e) =>
               changeTaskStatusHanler(task.id, e.currentTarget.checked)
             }
-            checked={task.isDone}
+            checked={isDone}
           />
           <EditableSpan
             title={task.title}
