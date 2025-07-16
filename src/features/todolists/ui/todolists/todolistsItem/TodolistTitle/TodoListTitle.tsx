@@ -2,7 +2,6 @@ import styled from 'styled-components'
 import { IconButton } from '@mui/material'
 import DeleteIcon from '@mui/icons-material/Delete'
 import { EditableSpan } from '@/common/components/EditableSpan/EditableSpan'
-import { useDispatch } from 'react-redux'
 import {
   useRemoveTodolistMutation,
   useUpdateTodolistTitleMutation,
@@ -14,16 +13,15 @@ type Props = {
 }
 
 export const TodoListTitle = ({ title, todolistId }: Props) => {
-  const dispatch = useDispatch()
   const [removeTodolist] = useRemoveTodolistMutation()
   const [updateTitle] = useUpdateTodolistTitleMutation()
 
   const deleteTodolistHandler = () => {
-    dispatch(removeTodolist(todolistId))
+    removeTodolist(todolistId)
   }
 
   const changeTodolistTitleHandler = (title: string) => {
-    dispatch(updateTitle({ id: todolistId, title }))
+    updateTitle({ id: todolistId, title })
   }
 
   return (
