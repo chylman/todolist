@@ -1,11 +1,11 @@
 import { useAppDispatch } from '@/common/hooks/useAppDispatch.ts'
 import { createTask } from '@/features/todolists/model/tasksSlice'
 import { CreateItemForm } from '@/common/components/AddItemForm/CreateItemForm'
-import { Tasks } from '@/features/todolists/ui/todolists/todolistsItem/Tasks/Tasks'
-import { TodoListTitle } from '@/features/todolists/ui/todolists/todolistsItem/TodolistTitle/TodoListTitle'
-import { FilterButtons } from '@/features/todolists/ui/todolists/todolistsItem/FilterButtons/FilterButtons'
 import React from 'react'
 import type { FilterValuesType } from '@/features/todolists/model/todolistsSlice'
+import { TodoListTitle } from './TodolistTitle/TodoListTitle'
+import { Tasks } from './Tasks/Tasks'
+import { FilterButtons } from '@/features/todolists/ui/Todolists/todolistsItem/FilterButtons/FilterButtons.tsx'
 
 type Props = {
   id: string
