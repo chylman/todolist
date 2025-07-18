@@ -7,10 +7,10 @@ import { EditableSpan } from '@/common/components/EditableSpan/EditableSpan'
 import {
   changeTaskStatus,
   changeTaskTitle,
-  deleteTask,
 } from '@/features/todolists/model/tasksSlice'
 import { DomainTask } from '@/features/todolists/api/tasksApi.type.ts'
 import { TaskStatus } from '@/common/enums'
+import { useDeleteTaskMutation } from '@/features/todolists/api/tasksApi.ts'
 
 type Props = {
   task: DomainTask
@@ -20,9 +20,10 @@ type Props = {
 export const TaskItem: React.FC<Props> = ({ task, todolistId }) => {
   const dispatch = useDispatch()
   const isDone = task.status === TaskStatus.Completed
+  const [deleteTask] = useDeleteTaskMutation()
 
   const deleteTaskHanler = (taskId: string) => {
-    dispatch(deleteTask({ taskId, todolistId }))
+    deleteTask({ todolistId, taskId })
   }
 
   const changeTaskTitleHandler = (taskId: string, title: string) =>
