@@ -1,4 +1,4 @@
-import { nanoid, PayloadAction } from '@reduxjs/toolkit'
+import { PayloadAction } from '@reduxjs/toolkit'
 import { TaskType } from '@/app/App'
 import {
   createTodolist,
@@ -19,15 +19,6 @@ export const tasksSlice = createAppSlice({
     selectTasks: (state) => state,
   },
   reducers: (create) => ({
-    createTask: create.reducer<{ title: string; id: string }>(
-      (state, action) => {
-        state[action.payload.id].unshift({
-          title: action.payload.title,
-          id: nanoid(),
-          isDone: false,
-        })
-      },
-    ),
     createTodolist: create.reducer<{ id: string }>(
       (state, action: PayloadAction<{ id: string }>) => {
         state[action.payload.id] = []
@@ -90,13 +81,8 @@ export const tasksSlice = createAppSlice({
   },
 })
 
-export const {
-  createTask,
-  deleteTask,
-  changeTaskStatus,
-  changeTaskTitle,
-  deleteAllTasks,
-} = tasksSlice.actions
+export const { deleteTask, changeTaskStatus, changeTaskTitle, deleteAllTasks } =
+  tasksSlice.actions
 export const { selectTasks } = tasksSlice.selectors
 
 export const tasksReducer = tasksSlice.reducer
