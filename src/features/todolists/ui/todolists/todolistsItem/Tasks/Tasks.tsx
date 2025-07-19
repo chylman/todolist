@@ -3,6 +3,7 @@ import type { FilterValuesType } from '@/features/todolists/model/todolistsSlice
 import { TaskItem } from './TaskItem/TaskItem'
 import { useGetTasksQuery } from '@/features/todolists/api/tasksApi.ts'
 import { TaskStatus } from '@/common/enums'
+import { TasksSkeleton } from '@/features/todolists/ui/todolists/todolistsItem/Tasks/TasksSkeleton/TasksSkeleton'
 
 type Props = {
   todolistId: string
@@ -10,7 +11,7 @@ type Props = {
 }
 
 export const Tasks = ({ todolistId, activeFilter }: Props) => {
-  const { data } = useGetTasksQuery(todolistId)
+  const { data, isLoading } = useGetTasksQuery(todolistId)
   let filtredTasks = data?.items
 
   if (activeFilter === 'active') {
@@ -21,6 +22,10 @@ export const Tasks = ({ todolistId, activeFilter }: Props) => {
     filtredTasks = filtredTasks?.filter(
       (t) => t.status === TaskStatus.Completed,
     )
+  }
+
+  if (isLoading) {
+    return <TasksSkeleton />
   }
 
   return (

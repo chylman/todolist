@@ -6,7 +6,7 @@ import {
 } from '@/features/todolists/api/tasksApi.type.ts'
 import { BaseResponse } from '@/common/types'
 
-export const taskApi = baseApi.injectEndpoints({
+export const tasksApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getTasks: builder.query<GetTasksResponse, string>({
       query: (todolistId) => `/todo-lists/${todolistId}/tasks`,
@@ -56,4 +56,4 @@ export const {
   useCreateTaskMutation,
   useDeleteTaskMutation,
   useUpdateTaskMutation,
-} = taskApi
+} = tasksApi
