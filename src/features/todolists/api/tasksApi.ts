@@ -2,6 +2,7 @@ import { baseApi } from '@/app/baseApi.ts'
 import {
   DomainTask,
   GetTasksResponse,
+  UpdateTaskModel,
 } from '@/features/todolists/api/tasksApi.type.ts'
 import { BaseResponse } from '@/common/types'
 
@@ -32,6 +33,21 @@ export const taskApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ['Task'],
     }),
+    updateTask: builder.mutation<
+      BaseResponse<DomainTask>,
+      {
+        todolistId: string
+        taskId: string
+        model: UpdateTaskModel
+      }
+    >({
+      query: ({ todolistId, taskId, model }) => ({
+        url: `/todo-lists/${todolistId}/tasks/${taskId}`,
+        method: 'PUT',
+        body: { ...model },
+      }),
+      invalidatesTags: ['Task'],
+    }),
   }),
 })
 
@@ -39,4 +55,5 @@ export const {
   useGetTasksQuery,
   useCreateTaskMutation,
   useDeleteTaskMutation,
+  useUpdateTaskMutation,
 } = taskApi

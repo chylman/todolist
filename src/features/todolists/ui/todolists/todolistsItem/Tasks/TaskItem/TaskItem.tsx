@@ -1,16 +1,17 @@
 import React from 'react'
 import { Box, Checkbox, IconButton, ListItem } from '@mui/material'
 import ClearIcon from '@mui/icons-material/Clear'
-import { useDispatch } from 'react-redux'
 import { getListItemSx } from '@/TaskList.styles'
 import { EditableSpan } from '@/common/components/EditableSpan/EditableSpan'
 import {
-  changeTaskStatus,
-  changeTaskTitle,
-} from '@/features/todolists/model/tasksSlice'
-import { DomainTask } from '@/features/todolists/api/tasksApi.type.ts'
-import { TaskStatus } from '@/common/enums'
-import { useDeleteTaskMutation } from '@/features/todolists/api/tasksApi.ts'
+  DomainTask,
+  UpdateTaskModel,
+} from '@/features/todolists/api/tasksApi.type.ts'
+import { TaskPriority, TaskStatus } from '@/common/enums'
+import {
+  useDeleteTaskMutation,
+  useUpdateTaskMutation,
+} from '@/features/todolists/api/tasksApi.ts'
 
 type Props = {
   task: DomainTask
@@ -18,19 +19,37 @@ type Props = {
 }
 
 export const TaskItem: React.FC<Props> = ({ task, todolistId }) => {
-  const dispatch = useDispatch()
   const isDone = task.status === TaskStatus.Completed
   const [deleteTask] = useDeleteTaskMutation()
+  const [updateTask] = useUpdateTaskMutation()
 
   const deleteTaskHanler = (taskId: string) => {
     deleteTask({ todolistId, taskId })
   }
 
-  const changeTaskTitleHandler = (taskId: string, title: string) =>
-    dispatch(changeTaskTitle({ taskId, title, todolistId }))
+  const changeTaskTitleHandler = (taskId: string, title: string) => {
+    const model: UpdateTaskModel = {
+      title: title,
+      status: TaskStatus.New,
+      deadline: task.deadline,
+      priority: TaskPriority.Low,
+      description: task.description,
+      startDate: task.startDate,
+    }
+    updateTask({ todolistId, taskId, model })
+  }
 
-  const changeTaskStatusHanler = (taskId: string, isDone: boolean) =>
-    dispatch(changeTaskStatus({ taskId, isDone, todolistId }))
+  const changeTaskStatusHanler = (taskId: string, status: TaskStatus) => {
+    const model: UpdateTaskModel = {
+      title: task.title,
+      status,
+      deadline: task.deadline,
+      priority: TaskPriority.Low,
+      description: task.description,
+      startDate: task.startDate,
+    }
+    updateTask({ todolistId, taskId, model })
+  }
 
   return (
     <ListItem disablePadding sx={getListItemSx(isDone)}>
@@ -39,7 +58,10 @@ export const TaskItem: React.FC<Props> = ({ task, todolistId }) => {
           <Checkbox
             size="small"
             onChange={(e) =>
-              changeTaskStatusHanler(task.id, e.currentTarget.checked)
+              changeTaskStatusHanler(
+                task.id,
+                e.currentTarget.checked ? TaskStatus.Completed : TaskStatus.New,
+              )
             }
             checked={isDone}
           />
