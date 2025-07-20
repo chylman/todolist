@@ -10,6 +10,7 @@ import { useEffect } from 'react'
 import { useMeQuery } from '@/features/auth/api/authApi.ts'
 import { ResultCode } from '@/common/enums'
 import { useAppDispatch } from '@/common/hooks/useAppDispatch.ts'
+import { ErrorSnackbar } from '@/common/components/ErrorSnackbar/ErrorSnackbar'
 
 export type TaskType = {
   title: string
@@ -42,6 +43,7 @@ export const App = () => {
         <CssBaseline />
         <Header />
         <Routing />
+        <ErrorSnackbar />
       </ThemeProvider>
     </div>
   )
