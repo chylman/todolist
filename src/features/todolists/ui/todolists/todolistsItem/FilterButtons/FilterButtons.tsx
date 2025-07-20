@@ -1,6 +1,5 @@
 import { Box, Button } from '@mui/material'
 import { type FilterValuesType } from '@/features/todolists/model/todolistsSlice'
-import { deleteAllTasks } from '@/features/todolists/model/tasksSlice'
 import React from 'react'
 import { todolistsApi } from '@/features/todolists/api/todolistsApi'
 import { useAppDispatch } from '@/common/hooks/useAppDispatch'
@@ -27,7 +26,8 @@ export const FilterButtons: React.FC<Props> = ({
   }
 
   const deleteAllTasksHandler = (todolistId: string) => {
-    dispatch(deleteAllTasks({ todolistId }))
+    // todo удаление всех тасок
+    return todolistId
   }
 
   return (
