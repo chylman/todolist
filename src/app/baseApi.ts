@@ -5,6 +5,8 @@ import { handleError } from '@/common/utils/handleError'
 export const baseApi = createApi({
   reducerPath: 'baseApi',
   tagTypes: ['Todolist', 'Task'],
+  refetchOnFocus: true,
+  refetchOnReconnect: true,
   baseQuery: async (args, api, extraOptions) => {
     const result = await fetchBaseQuery({
       baseUrl: import.meta.env.VITE_BASE_URL,
