@@ -1,12 +1,12 @@
 import { List } from '@mui/material'
-import { TaskItem } from './TaskItem/TaskItem'
 import { useGetTasksQuery } from '@/features/todolists/api/tasksApi.ts'
 import { TaskStatus } from '@/common/enums'
-import { TasksSkeleton } from '@/features/todolists/ui/todolists/todolistsItem/Tasks/TasksSkeleton/TasksSkeleton'
-import { PAGE_SIZE } from '@/common/constants'
 import { FilterValuesType } from '@/features/todolists/lib/types'
 import { useState } from 'react'
-import { TasksPagination } from '@/features/todolists/ui/todolists/TodolistItem/Tasks/TasksPagination/TasksPagination'
+import { TasksPagination } from '@/features/todolists/ui/Todolists/TodolistItem/Tasks/TasksPagination/TasksPagination.tsx'
+import { TasksSkeleton } from '@/features/todolists/ui/Todolists/todolistsItem/Tasks/TasksSkeleton/TasksSkeleton.tsx'
+import { TaskItem } from '@/features/todolists/ui/Todolists/todolistsItem/Tasks/TaskItem/TaskItem.tsx'
+import { PAGE_SIZE } from '@/common/constants'
 
 type Props = {
   todolistId: string
@@ -17,8 +17,11 @@ export const Tasks = ({ todolistId, activeFilter }: Props) => {
   const [page, setPage] = useState<number>(1)
   const { data, isLoading } = useGetTasksQuery({
     todolistId,
-    params: { page: page, count: PAGE_SIZE },
+    params: { page: page },
   })
+  const isPaginationShow = data?.totalCount
+    ? data?.totalCount >= PAGE_SIZE
+    : false
   let filtredTasks = data?.items
 
   if (activeFilter === 'active') {
@@ -46,11 +49,13 @@ export const Tasks = ({ todolistId, activeFilter }: Props) => {
               return <TaskItem key={t.id} task={t} todolistId={todolistId} />
             })}
           </List>
-          <TasksPagination
-            totalCount={data?.totalCount || 0}
-            page={page}
-            setPage={setPage}
-          />
+          {isPaginationShow && (
+            <TasksPagination
+              totalCount={data?.totalCount || 0}
+              page={page}
+              setPage={setPage}
+            />
+          )}
         </>
       )}
     </div>
