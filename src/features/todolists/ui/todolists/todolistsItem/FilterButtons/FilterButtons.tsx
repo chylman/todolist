@@ -1,8 +1,8 @@
 import { Box, Button } from '@mui/material'
-import { type FilterValuesType } from '@/features/todolists/model/todolistsSlice'
 import React from 'react'
 import { todolistsApi } from '@/features/todolists/api/todolistsApi'
 import { useAppDispatch } from '@/common/hooks/useAppDispatch'
+import { FilterValuesType } from '@/features/todolists/lib/types'
 
 type Props = {
   activeFilter: FilterValuesType
@@ -14,6 +14,7 @@ export const FilterButtons: React.FC<Props> = ({
   todolistId,
 }) => {
   const dispatch = useAppDispatch()
+
   const changeTodoListFilterHandler = (newFilterValue: FilterValuesType) => {
     dispatch(
       todolistsApi.util.updateQueryData('getTodolists', undefined, (state) => {
@@ -25,21 +26,8 @@ export const FilterButtons: React.FC<Props> = ({
     )
   }
 
-  const deleteAllTasksHandler = (todolistId: string) => {
-    // todo удаление всех тасок
-    return todolistId
-  }
-
   return (
     <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-      <Button
-        variant={'contained'}
-        size="small"
-        disableElevation
-        onClick={() => deleteAllTasksHandler(todolistId)}
-      >
-        {'DELETE ALL'}
-      </Button>
       <Button
         variant={'contained'}
         size="small"
