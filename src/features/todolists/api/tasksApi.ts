@@ -5,16 +5,17 @@ import {
   UpdateTaskModel,
 } from '@/features/todolists/api/tasksApi.type.ts'
 import { BaseResponse } from '@/common/types'
+import { PAGE_SIZE } from '@/common/constants'
 
 export const tasksApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getTasks: builder.query<
       GetTasksResponse,
-      { todolistId: string; params: { count: number; page: number } }
+      { todolistId: string; params: { page: number } }
     >({
       query: ({ todolistId, params }) => ({
         url: `/todo-lists/${todolistId}/tasks`,
-        params,
+        params: { ...params, count: PAGE_SIZE },
       }),
       providesTags: (_res, _err, { todolistId }) => [
         { type: 'Task', id: todolistId },
@@ -58,6 +59,43 @@ export const tasksApi = baseApi.injectEndpoints({
         method: 'PUT',
         body: { ...model },
       }),
+      async onQueryStarted(
+        { todolistId, taskId, model },
+        { dispatch, queryFulfilled, getState },
+      ) {
+        const cachedArgsForQuery = tasksApi.util.selectCachedArgsForQuery(
+          getState(),
+          'getTasks',
+        )
+
+        let patchResults: any[] = []
+        cachedArgsForQuery.forEach(({ params }) => {
+          patchResults.push(
+            dispatch(
+              tasksApi.util.updateQueryData(
+                'getTasks',
+                { todolistId, params: { page: params.page } },
+                (state) => {
+                  const index = state.items.findIndex(
+                    (task) => task.id === taskId,
+                  )
+                  if (index !== -1) {
+                    state.items[index] = { ...state.items[index], ...model }
+                  }
+                },
+              ),
+            ),
+          )
+        })
+        try {
+          await queryFulfilled
+        } catch {
+          patchResults.forEach((patchResult) => {
+            debugger
+            patchResult.undo()
+          })
+        }
+      },
       invalidatesTags: (_res, _err, { todolistId }) => [
         { type: 'Task', id: todolistId },
       ],
