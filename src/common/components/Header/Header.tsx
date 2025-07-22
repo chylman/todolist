@@ -54,7 +54,7 @@ export const Header = () => {
   }
 
   return (
-    <AppBar position="static">
+    <AppBar position="relative">
       <Toolbar>
         <Container
           maxWidth="lg"
@@ -66,7 +66,12 @@ export const Header = () => {
           <Box>
             {!isLoggedIn && (
               <NavLink to={Path.Login}>
-                <Button variant="text" color="secondary">
+                <Button
+                  variant="text"
+                  size={'large'}
+                  color="secondary"
+                  sx={{ fontWeight: '700' }}
+                >
                   Sign in
                 </Button>
               </NavLink>
@@ -76,18 +81,27 @@ export const Header = () => {
                 variant="text"
                 color="secondary"
                 onClick={signOutClickHandler}
+                size={'large'}
+                sx={{ fontWeight: '700' }}
               >
                 Sign Out
               </Button>
             )}
-            <Button variant="text" color="secondary">
+            <Button
+              variant="text"
+              color="secondary"
+              size={'large'}
+              sx={{ fontWeight: '700' }}
+            >
               Faq
             </Button>
             <Switch color="secondary" onChange={changeMode} />
           </Box>
         </Container>
       </Toolbar>
-      {status === 'loading' && <LinearProgress />}
+      <Box sx={{ position: 'absolute', bottom: '0', width: '100%' }}>
+        {status === 'loading' && <LinearProgress />}
+      </Box>
     </AppBar>
   )
 }

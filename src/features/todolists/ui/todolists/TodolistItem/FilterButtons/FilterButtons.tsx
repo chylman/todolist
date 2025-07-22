@@ -23,7 +23,14 @@ export const FilterButtons = ({ activeFilter, todolistId }: Props) => {
   }
 
   return (
-    <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+    <Box
+      sx={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        columnGap: '10px',
+      }}
+    >
       <Button
         variant={'contained'}
         size="small"

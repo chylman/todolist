@@ -1,4 +1,4 @@
-import { IconButton, TextField } from '@mui/material'
+import { Box, IconButton, TextField } from '@mui/material'
 import { ChangeEvent, KeyboardEvent, useState } from 'react'
 import AddBoxIcon from '@mui/icons-material/AddBox'
 
@@ -35,7 +35,7 @@ export const CreateItemForm = ({ onCreateItem, maxTitleLength }: Props) => {
   }
 
   return (
-    <div>
+    <Box sx={{ display: 'flex', alignItems: 'center', columnGap: '10px' }}>
       <TextField
         variant="outlined"
         size="small"
@@ -48,6 +48,7 @@ export const CreateItemForm = ({ onCreateItem, maxTitleLength }: Props) => {
         helperText={error && 'enter valid title'}
       />
       <IconButton
+        sx={{ p: 0 }}
         aria-label={'add'}
         disabled={isAddBtnDisabled}
         onClick={createItemHandler}
@@ -57,6 +58,6 @@ export const CreateItemForm = ({ onCreateItem, maxTitleLength }: Props) => {
       {itemInput.length > maxTitleLength && (
         <div style={{ color: 'red' }}> title is too long</div>
       )}
-    </div>
+    </Box>
   )
 }

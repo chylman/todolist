@@ -70,7 +70,7 @@ export const getTheme = (themeMode: ThemeMode) => {
                 transition:
                   'transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease',
                 '&:hover': {
-                  transform: 'scale(1.05)',
+                  transform: 'scale(1.02)',
                   backgroundColor: '#E5E5E5',
                   boxShadow: '0 10px 20px rgba(0, 0, 0, 0.3)',
                   zIndex: 1,
@@ -126,7 +126,7 @@ export const getTheme = (themeMode: ThemeMode) => {
                 transition:
                   'transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease',
                 '&:hover': {
-                  transform: 'scale(1.05)',
+                  transform: 'scale(1.02)',
                   backgroundColor: '#282828',
                   boxShadow: '0 10px 20px rgba(0, 0, 0, 0.3)',
                   zIndex: 1,

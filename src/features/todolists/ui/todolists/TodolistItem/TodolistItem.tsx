@@ -4,6 +4,7 @@ import { FilterValuesType } from '@/features/todolists/lib/types'
 import { TodoListTitle } from '@/features/todolists/ui/todolists/TodolistItem/TodolistTitle/TodoListTitle.tsx'
 import { Tasks } from '@/features/todolists/ui/todolists/TodolistItem/Tasks/Tasks.tsx'
 import { FilterButtons } from '@/features/todolists/ui/todolists/TodolistItem/FilterButtons/FilterButtons.tsx'
+import { Box } from '@mui/material'
 
 type Props = {
   id: string
@@ -21,10 +22,12 @@ export const TodolistItem = ({ title, activeFilter, id }: Props) => {
   return (
     <div>
       <TodoListTitle title={title} todolistId={id}></TodoListTitle>
-      <CreateItemForm
-        onCreateItem={createTaskHandler}
-        maxTitleLength={12}
-      ></CreateItemForm>
+      <Box sx={{ marginBottom: '20px' }}>
+        <CreateItemForm
+          onCreateItem={createTaskHandler}
+          maxTitleLength={12}
+        ></CreateItemForm>
+      </Box>
       <Tasks todolistId={id} activeFilter={activeFilter}></Tasks>
       <FilterButtons
         activeFilter={activeFilter}

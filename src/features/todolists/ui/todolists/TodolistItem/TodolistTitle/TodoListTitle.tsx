@@ -1,11 +1,11 @@
-import styled from 'styled-components'
-import { IconButton } from '@mui/material'
+import { Box, IconButton } from '@mui/material'
 import DeleteIcon from '@mui/icons-material/Delete'
 import { EditableSpan } from '@/common/components/EditableSpan/EditableSpan'
 import {
   useRemoveTodolistMutation,
   useUpdateTodolistTitleMutation,
 } from '@/features/todolists/api/todolistsApi.ts'
+import Typography from '@mui/material/Typography'
 
 type Props = {
   title: string
@@ -25,28 +25,33 @@ export const TodoListTitle = ({ title, todolistId }: Props) => {
   }
 
   return (
-    <TitleWrapper>
-      <Title>
+    <Box
+      sx={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        columnGap: '10px',
+        marginBottom: '20px',
+      }}
+    >
+      <Typography
+        sx={{
+          fontWeight: 700,
+          textTransform: 'uppercase',
+        }}
+        variant={'h4'}
+        component="h2"
+      >
         <EditableSpan
           changeTitle={changeTodolistTitleHandler}
           classes={''}
           title={title}
         />
-      </Title>
+      </Typography>
+
       <IconButton onClick={deleteTodolistHandler}>
         <DeleteIcon />
       </IconButton>
-    </TitleWrapper>
+    </Box>
   )
 }
-
-const TitleWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 24px;
-`
-
-const Title = styled.h2`
-  margin: 0 10px 10px 0;
-`
