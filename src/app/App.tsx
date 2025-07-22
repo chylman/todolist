@@ -3,7 +3,6 @@ import { CircularProgress, CssBaseline, ThemeProvider } from '@mui/material'
 import { useAppSelector } from '@/common/hooks/useAppSelector'
 import { getTheme } from '@/common/theme/theme.ts'
 import { Header } from '@/common/components/Header/Header'
-import type { FilterValuesType } from '@/features/todolists/model/todolistsSlice'
 import {
   selectIsInitialized,
   selectThemeMode,
@@ -17,18 +16,6 @@ import { ResultCode } from '@/common/enums'
 import { useAppDispatch } from '@/common/hooks/useAppDispatch.ts'
 import { ErrorSnackbar } from '@/common/components/ErrorSnackbar/ErrorSnackbar'
 import styles from './App.module.css'
-
-export type TaskType = {
-  title: string
-  id: string
-  isDone: boolean
-}
-
-export type TodolistType = {
-  id: string
-  title: string
-  filter: FilterValuesType
-}
 
 export const App = () => {
   const themeMode = useAppSelector(selectThemeMode)
