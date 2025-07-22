@@ -1,8 +1,8 @@
-import { Box, Grid, Paper } from '@mui/material'
+import { Box, Card, Grid } from '@mui/material'
 import { useGetTodolistsQuery } from '@/features/todolists/api/todolistsApi.ts'
 import { containerSx } from '@/common/styles'
-import { TodolistSkeleton } from '@/features/todolists/ui/Todolists/TodolistSkeleton/TodolistSkeleton.tsx'
 import { TodolistItem } from '@/features/todolists/ui/todolists/TodolistItem/TodolistItem.tsx'
+import { TodolistSkeleton } from '@/features/todolists/ui/todolists/TodolistSkeleton/TodolistSkeleton'
 
 export const Todolists = () => {
   const { data: todolists, isLoading } = useGetTodolistsQuery()
@@ -24,13 +24,13 @@ export const Todolists = () => {
       {todolists?.map((tl) => {
         return (
           <Grid key={tl.id}>
-            <Paper elevation={8} sx={{ p: '20px' }}>
+            <Card elevation={8} sx={{ p: '20px' }}>
               <TodolistItem
                 id={tl.id}
                 title={tl.title}
                 activeFilter={tl.filter}
               />
-            </Paper>
+            </Card>
           </Grid>
         )
       })}
