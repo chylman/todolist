@@ -3,9 +3,9 @@ import { useGetTasksQuery } from '@/features/todolists/api/tasksApi.ts'
 import { TaskStatus } from '@/common/enums'
 import { FilterValuesType } from '@/features/todolists/lib/types'
 import { useState } from 'react'
-import { TasksPagination } from '@/features/todolists/ui/Todolists/TodolistItem/Tasks/TasksPagination/TasksPagination.tsx'
-import { TasksSkeleton } from '@/features/todolists/ui/Todolists/todolistsItem/Tasks/TasksSkeleton/TasksSkeleton.tsx'
-import { TaskItem } from '@/features/todolists/ui/Todolists/todolistsItem/Tasks/TaskItem/TaskItem.tsx'
+import { TasksPagination } from '@/features/todolists/ui/todolists/TodolistItem/Tasks/TasksPagination/TasksPagination.tsx'
+import { TasksSkeleton } from '@/features/todolists/ui/todolists/TodolistItem/Tasks/TasksSkeleton/TasksSkeleton.tsx'
+import { TaskItem } from '@/features/todolists/ui/todolists/TodolistItem/Tasks/TaskItem/TaskItem.tsx'
 import { PAGE_SIZE } from '@/common/constants'
 
 type Props = {
