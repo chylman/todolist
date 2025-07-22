@@ -1,5 +1,4 @@
 import { CreateItemForm } from '@/common/components/AddItemForm/CreateItemForm'
-import React from 'react'
 import { useCreateTaskMutation } from '@/features/todolists/api/tasksApi.ts'
 import { FilterValuesType } from '@/features/todolists/lib/types'
 import { TodoListTitle } from '@/features/todolists/ui/todolists/TodolistItem/TodolistTitle/TodoListTitle.tsx'
@@ -12,7 +11,7 @@ type Props = {
   activeFilter: FilterValuesType
 }
 
-export const TodolistItem: React.FC<Props> = ({ title, activeFilter, id }) => {
+export const TodolistItem = ({ title, activeFilter, id }: Props) => {
   const [create] = useCreateTaskMutation()
 
   const createTaskHandler = (title: string) => {

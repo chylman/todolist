@@ -1,4 +1,3 @@
-import React from 'react'
 import { Box, Checkbox, IconButton, ListItem } from '@mui/material'
 import ClearIcon from '@mui/icons-material/Clear'
 import { getListItemSx } from '@/TaskList.styles'
@@ -18,7 +17,7 @@ type Props = {
   todolistId: string
 }
 
-export const TaskItem: React.FC<Props> = ({ task, todolistId }) => {
+export const TaskItem = ({ task, todolistId }: Props) => {
   const isDone = task.status === TaskStatus.Completed
   const [deleteTask] = useDeleteTaskMutation()
   const [updateTask] = useUpdateTaskMutation()

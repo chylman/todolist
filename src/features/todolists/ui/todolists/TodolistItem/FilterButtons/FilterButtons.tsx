@@ -1,5 +1,4 @@
 import { Box, Button } from '@mui/material'
-import React from 'react'
 import { todolistsApi } from '@/features/todolists/api/todolistsApi'
 import { useAppDispatch } from '@/common/hooks/useAppDispatch'
 import { FilterValuesType } from '@/features/todolists/lib/types'
@@ -9,10 +8,7 @@ type Props = {
   todolistId: string
 }
 
-export const FilterButtons: React.FC<Props> = ({
-  activeFilter,
-  todolistId,
-}) => {
+export const FilterButtons = ({ activeFilter, todolistId }: Props) => {
   const dispatch = useAppDispatch()
 
   const changeTodoListFilterHandler = (newFilterValue: FilterValuesType) => {
