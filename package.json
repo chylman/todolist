@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "vite --port 3000",
     "build": "tsc -b && vite build",
-    "predeploy" : "pnpm run build",
+    "predeploy": "pnpm run build",
     "deploy": "gh-pages -d dist",
     "test": "vitest",
     "preview": "vite preview"
@@ -20,6 +20,7 @@
     "@mui/material": "^7.0.2",
     "@reduxjs/toolkit": "^2.7.0",
     "axios": "^1.9.0",
+    "motion": "^12.23.6",
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "react-hook-form": "^7.60.0",

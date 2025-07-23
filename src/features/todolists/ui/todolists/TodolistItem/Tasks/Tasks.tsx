@@ -3,10 +3,11 @@ import { useGetTasksQuery } from '@/features/todolists/api/tasksApi.ts'
 import { TaskStatus } from '@/common/enums'
 import { FilterValuesType } from '@/features/todolists/lib/types'
 import { useState } from 'react'
-import { TasksPagination } from '@/features/todolists/ui/todolists/TodolistItem/Tasks/TasksPagination/TasksPagination.tsx'
-import { TasksSkeleton } from '@/features/todolists/ui/todolists/TodolistItem/Tasks/TasksSkeleton/TasksSkeleton.tsx'
-import { TaskItem } from '@/features/todolists/ui/todolists/TodolistItem/Tasks/TaskItem/TaskItem.tsx'
 import { PAGE_SIZE } from '@/common/constants'
+import { TasksSkeleton } from '@/features/todolists/ui/Todolists/TodolistItem/Tasks/TasksSkeleton/TasksSkeleton.tsx'
+import { TaskItem } from '@/features/todolists/ui/Todolists/TodolistItem/Tasks/TaskItem/TaskItem.tsx'
+import { TasksPagination } from '@/features/todolists/ui/Todolists/TodolistItem/Tasks/TasksPagination/TasksPagination.tsx'
+import { AnimatePresence, motion } from 'motion/react'
 
 type Props = {
   todolistId: string
@@ -40,24 +41,30 @@ export const Tasks = ({ todolistId, activeFilter }: Props) => {
 
   return (
     <div>
-      {filtredTasks?.length === 0 || filtredTasks === undefined ? (
-        <p>Тасок нет</p>
-      ) : (
-        <>
-          <List>
-            {filtredTasks?.map((t) => {
-              return <TaskItem key={t.id} task={t} todolistId={todolistId} />
-            })}
-          </List>
-          {isPaginationShow && (
-            <TasksPagination
-              totalCount={data?.totalCount || 0}
-              page={page}
-              setPage={setPage}
-            />
-          )}
-        </>
-      )}
+      <AnimatePresence>
+        {filtredTasks?.length === 0 || filtredTasks === undefined ? (
+          <motion.p exit={{ opacity: 0 }}>Тасок нет</motion.p>
+        ) : (
+          <>
+            <List>
+              <AnimatePresence>
+                {filtredTasks?.map((t) => {
+                  return (
+                    <TaskItem key={t.id} task={t} todolistId={todolistId} />
+                  )
+                })}
+              </AnimatePresence>
+            </List>
+            {isPaginationShow && (
+              <TasksPagination
+                totalCount={data?.totalCount || 0}
+                page={page}
+                setPage={setPage}
+              />
+            )}
+          </>
+        )}
+      </AnimatePresence>
     </div>
   )
 }

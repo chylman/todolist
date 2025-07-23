@@ -11,6 +11,7 @@ import {
   useDeleteTaskMutation,
   useUpdateTaskMutation,
 } from '@/features/todolists/api/tasksApi.ts'
+import { motion } from 'motion/react'
 
 type Props = {
   task: DomainTask
@@ -52,8 +53,8 @@ export const TaskItem = ({ task, todolistId }: Props) => {
 
   return (
     <ListItem disablePadding sx={getListItemSx(isDone)}>
-      <Box>
-        <label>
+      <motion.div exit={{ opacity: 0 }} layout>
+        <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <Checkbox
             size="small"
             onChange={(e) =>
@@ -70,8 +71,8 @@ export const TaskItem = ({ task, todolistId }: Props) => {
               changeTaskTitleHandler(task.id, title)
             }
           />
-        </label>
-      </Box>
+        </Box>
+      </motion.div>
       <IconButton size="small" onClick={() => deleteTaskHanler(task.id)}>
         <ClearIcon />
       </IconButton>

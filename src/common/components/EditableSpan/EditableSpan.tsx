@@ -1,5 +1,6 @@
 import React, { ChangeEvent, useState } from 'react'
 import { TextField } from '@mui/material'
+import Typography from '@mui/material/Typography'
 
 type EditableSpanPropsType = {
   title: string
@@ -13,7 +14,7 @@ export const EditableSpan: React.FC<EditableSpanPropsType> = ({
   changeTitle,
 }: EditableSpanPropsType) => {
   const [isEditMode, setIsEditMode] = useState(false)
-  const [titleInput, setTitleInput] = useState<string>(title)
+  const [titleInput, setTitleInput] = useState<string>(title.toUpperCase())
   const onEditMode = () => setIsEditMode(true)
   const offEditMode = () => {
     setIsEditMode(false)
@@ -21,7 +22,7 @@ export const EditableSpan: React.FC<EditableSpanPropsType> = ({
   }
 
   const setTitleInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    setTitleInput(e.currentTarget.value)
+    setTitleInput(e.currentTarget.value.toUpperCase())
   }
 
   return isEditMode ? (
@@ -33,8 +34,8 @@ export const EditableSpan: React.FC<EditableSpanPropsType> = ({
       onChange={setTitleInputHandler}
     />
   ) : (
-    <span className={classes} onDoubleClick={onEditMode}>
+    <Typography className={classes} onDoubleClick={onEditMode}>
       {title}
-    </span>
+    </Typography>
   )
 }

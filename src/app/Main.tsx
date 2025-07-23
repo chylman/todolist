@@ -1,7 +1,8 @@
 import { Container, Grid } from '@mui/material'
 import { CreateItemForm } from '@/common/components/AddItemForm/CreateItemForm'
 import { useAddTodolistMutation } from '@/features/todolists/api/todolistsApi.ts'
-import { Todolists } from '@/features/todolists/ui/todolists/Todolists'
+import { Todolists } from '@/features/todolists/ui/Todolists/Todolists'
+import { AnimatePresence } from 'motion/react'
 
 export const Main = () => {
   const [addTodolist] = useAddTodolistMutation()
@@ -12,7 +13,9 @@ export const Main = () => {
         <CreateItemForm onCreateItem={addTodolist} maxTitleLength={10} />
       </Grid>
       <Grid container spacing={4}>
-        <Todolists />
+        <AnimatePresence>
+          <Todolists />
+        </AnimatePresence>
       </Grid>
     </Container>
   )
